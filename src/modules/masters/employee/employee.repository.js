@@ -1,0 +1,84 @@
+const { EmployeeModel } = require("./employee.model");
+const { EmployeeCounterModel } = require("./employee.counter.model");
+const {
+  escapeRegex,
+  findActiveById,
+  runPagedQuery,
+  softDeleteActiveById,
+  updateActiveById,
+} = require("../shared/masterRepositoryHelpers");
+
+async function getNextEmployeeId() {
+  const counter = await EmployeeCounterModel.findByIdAndUpdate(
+    "employeeId",
+    { $inc: { seq: 1 } },
+    { upsert: true, new: true, setDefaultsOnInsert: true },
+  ).lean();
+  const next = counter.seq;
+  return `EMP${String(next).padStart(6, "0")}`;
+}
+
+const employeeRepository = {
+  create(data) {
+    return EmployeeModel.create(data);
+  },
+
+  findById(id) {
+    return findActiveById(EmployeeModel, id);
+  },
+
+  findByEmployeeId(employeeId) {
+    return EmployeeModel.findOne({ employeeId, isDeleted: false }).lean();
+  },
+
+  async createWithAutoId(data) {
+    const employeeId = await getNextEmployeeId();
+    return EmployeeModel.create({ ...data, employeeId });
+  },
+
+  async findMany({
+    search,
+    department,
+    isActive,
+    isApproved,
+    page,
+    limit,
+    sortBy,
+    sortDir,
+  }) {
+    const q = { isDeleted: false };
+    if (department) q.department = department;
+    if (typeof isActive === "boolean") q.isActive = isActive;
+    if (typeof isApproved === "boolean") q.isApproved = isApproved;
+
+    if (search) {
+      const safeSearch = escapeRegex(search);
+      q.$or = [
+        { employeeId: { $regex: safeSearch, $options: "i" } },
+        { employeeName: { $regex: safeSearch, $options: "i" } },
+        { emailId: { $regex: safeSearch, $options: "i" } },
+        { city: { $regex: safeSearch, $options: "i" } },
+        { state: { $regex: safeSearch, $options: "i" } },
+      ];
+    }
+
+    return runPagedQuery({
+      model: EmployeeModel,
+      query: q,
+      page,
+      limit,
+      sortBy,
+      sortDir,
+    });
+  },
+
+  updateById(id, patch) {
+    return updateActiveById(EmployeeModel, id, patch);
+  },
+
+  softDeleteById(id) {
+    return softDeleteActiveById(EmployeeModel, id, { isActive: false });
+  },
+};
+
+module.exports = { employeeRepository };

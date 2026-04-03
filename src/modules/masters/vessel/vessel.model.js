@@ -1,0 +1,23 @@
+const mongoose = require("mongoose");
+
+const VesselSchema = new mongoose.Schema(
+  {
+    code: { type: Number, unique: true, index: true, sparse: true },
+    vesselName: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+      index: true,
+    },
+    isDeleted: { type: Boolean, default: false, index: true },
+    deletedAt: { type: Date, default: null },
+  },
+  { timestamps: true },
+);
+
+VesselSchema.index({ vesselName: "text" });
+
+const VesselModel = mongoose.model("Vessel", VesselSchema);
+
+module.exports = { VesselModel };

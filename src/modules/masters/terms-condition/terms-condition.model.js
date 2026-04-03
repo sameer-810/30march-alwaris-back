@@ -1,0 +1,26 @@
+const mongoose = require("mongoose");
+
+const TermsConditionSchema = new mongoose.Schema(
+  {
+    counter: { type: Number, unique: true, index: true, sparse: true },
+    lineOfBixId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "LineOfBix",
+      required: true,
+      index: true,
+    },
+    description: { type: String, required: true, trim: true },
+    isDeleted: { type: Boolean, default: false, index: true },
+    deletedAt: { type: Date, default: null },
+  },
+  { timestamps: true },
+);
+
+TermsConditionSchema.index({ description: "text" });
+
+const TermsConditionModel = mongoose.model(
+  "TermsCondition",
+  TermsConditionSchema,
+);
+
+module.exports = { TermsConditionModel };
