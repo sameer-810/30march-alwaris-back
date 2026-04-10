@@ -1,7 +1,9 @@
 const { vesselRepository } = require("./vessel.repository");
-const { createMasterService } = require("../shared/createMasterService");
+const {
+  createResourceService,
+} = require("../../common/shared-crud/createResourceService");
 
-const vesselService = createMasterService({
+const vesselService = createResourceService({
   repository: vesselRepository,
   notFoundMessage: "Vessel not found",
   createMethod: "createWithAutoCode",

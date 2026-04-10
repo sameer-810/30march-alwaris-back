@@ -1,17 +1,19 @@
 function toVendorAgentDto(doc) {
+  const resolvedVendorType = doc.vendorTypeId || doc.customerTypeId;
+
   return {
     id: String(doc._id),
     code: doc.code,
-    customerTypeId:
-      typeof doc.customerTypeId === "object"
-        ? String(doc.customerTypeId._id)
-        : String(doc.customerTypeId),
-    customerType:
-      typeof doc.customerTypeId === "object"
-        ? doc.customerTypeId.customerType
+    vendorTypeId:
+      typeof resolvedVendorType === "object"
+        ? String(resolvedVendorType._id)
+        : String(resolvedVendorType || ""),
+    vendorType:
+      typeof resolvedVendorType === "object"
+        ? resolvedVendorType.vendorType || resolvedVendorType.customerType
         : undefined,
     mail: doc.mail,
-    customerName: doc.customerName,
+    vendorName: doc.vendorName,
     address: doc.address,
     city: doc.city,
     country: doc.country,

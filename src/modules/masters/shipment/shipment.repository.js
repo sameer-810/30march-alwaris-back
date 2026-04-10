@@ -1,5 +1,5 @@
 const { ShipmentModel } = require("./shipment.model");
-const { ShipmentCounterModel } = require("./shipment.counter.model");
+const { CounterModel } = require("../../common/shared-crud/counter.model");
 const {
   createCounterFieldHelpers,
   escapeRegex,
@@ -7,11 +7,11 @@ const {
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../shared/masterRepositoryHelpers");
+} = require("../../common/shared-crud/resourceRepositoryHelpers");
 
 const codeHelpers = createCounterFieldHelpers({
   model: ShipmentModel,
-  counterModel: ShipmentCounterModel,
+  counterModel: CounterModel,
   counterId: "shipmentCounterCode",
   fieldName: "code",
 });

@@ -1,15 +1,15 @@
 const { EmployeeModel } = require("./employee.model");
-const { EmployeeCounterModel } = require("./employee.counter.model");
+const { CounterModel } = require("../../common/shared-crud/counter.model");
 const {
   escapeRegex,
   findActiveById,
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../shared/masterRepositoryHelpers");
+} = require("../../common/shared-crud/resourceRepositoryHelpers");
 
 async function getNextEmployeeId() {
-  const counter = await EmployeeCounterModel.findByIdAndUpdate(
+  const counter = await CounterModel.findByIdAndUpdate(
     "employeeId",
     { $inc: { seq: 1 } },
     { upsert: true, new: true, setDefaultsOnInsert: true },

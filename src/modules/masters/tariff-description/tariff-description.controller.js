@@ -1,8 +1,10 @@
 const { tariffDescriptionService } = require("./tariff-description.service");
 const { toTariffDescriptionDto } = require("./tariff-description.dto");
-const { createMasterController } = require("../shared/createMasterController");
+const {
+  createResourceController,
+} = require("../../common/shared-crud/createResourceController");
 
-const tariffDescriptionController = createMasterController({
+const tariffDescriptionController = createResourceController({
   service: tariffDescriptionService,
   toDto: toTariffDescriptionDto,
 });

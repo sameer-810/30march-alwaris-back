@@ -1,7 +1,9 @@
 const { portRepository } = require("./port.repository");
-const { createMasterService } = require("../shared/createMasterService");
+const {
+  createResourceService,
+} = require("../../common/shared-crud/createResourceService");
 
-const portService = createMasterService({
+const portService = createResourceService({
   repository: portRepository,
   notFoundMessage: "Port not found",
   createMethod: "createWithAutoCode",

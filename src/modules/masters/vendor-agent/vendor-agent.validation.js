@@ -5,16 +5,16 @@ const {
   emailSchema,
 } = require("../../../utils/validationPrimitives");
 const {
-  buildMasterListQuerySchema,
-  createMasterCrudSchemas,
-} = require("../shared/masterValidationHelpers");
+  buildResourceListQuerySchema,
+  createResourceCrudSchemas,
+} = require("../../common/shared-crud/resourceValidationHelpers");
 
 const emailListSchema = z.array(emailSchema("Invalid Email ID")).max(20);
 
 const vendorAgentBodyCreateSchema = z.object({
-  customerTypeId: objectIdSchema,
+  vendorTypeId: objectIdSchema,
+  vendorName: z.string().trim().min(1, "Vendor Name is required"),
   mail: z.string().trim().optional(),
-  customerName: z.string().trim().min(1, "Customer Name is required"),
   address: z.string().trim().min(1, "Address is required"),
   city: z.string().trim().min(1, "City is required"),
   country: z.string().trim().min(1, "Country is required"),
@@ -31,9 +31,9 @@ const vendorAgentBodyCreateSchema = z.object({
 });
 
 const vendorAgentBodyUpdateSchema = z.object({
-  customerTypeId: objectIdSchema.optional(),
+  vendorTypeId: objectIdSchema.optional(),
+  vendorName: z.string().trim().min(1, "Vendor Name is required").optional(),
   mail: z.string().trim().optional(),
-  customerName: z.string().trim().min(1).optional(),
   address: z.string().trim().min(1).optional(),
   city: z.string().trim().min(1).optional(),
   country: z.string().trim().min(1).optional(),
@@ -49,10 +49,10 @@ const vendorAgentBodyUpdateSchema = z.object({
   panNo: z.string().trim().optional(),
 });
 
-const vendorAgentListQuerySchema = buildMasterListQuerySchema({
-  sortByEnum: z.enum(["createdAt", "code", "customerName"]),
+const vendorAgentListQuerySchema = buildResourceListQuerySchema({
+  sortByEnum: z.enum(["createdAt", "code", "vendorName"]),
   extraQueryShape: {
-    customerTypeId: objectIdSchema.optional(),
+    vendorTypeId: objectIdSchema.optional(),
   },
 });
 
@@ -62,7 +62,7 @@ const {
   getSchema: vendorAgentGetSchema,
   deleteSchema: vendorAgentDeleteSchema,
   listSchema: vendorAgentListSchema,
-} = createMasterCrudSchemas({
+} = createResourceCrudSchemas({
   createBodySchema: vendorAgentBodyCreateSchema,
   updateBodySchema: vendorAgentBodyUpdateSchema,
   listQuerySchema: vendorAgentListQuerySchema,

@@ -1,14 +1,16 @@
 const { vendorAgentRepository } = require("./vendor-agent.repository");
-const { createMasterService } = require("../shared/createMasterService");
+const {
+  createResourceService,
+} = require("../../common/shared-crud/createResourceService");
 
-const vendorAgentService = createMasterService({
+const vendorAgentService = createResourceService({
   repository: vendorAgentRepository,
   notFoundMessage: "Vendor / Agent not found",
   createMethod: "createWithAutoCode",
   mapCreatePayload: (payload) => ({
-    customerTypeId: payload.customerTypeId,
+    vendorTypeId: payload.vendorTypeId,
     mail: payload.mail || "",
-    customerName: payload.customerName,
+    vendorName: payload.vendorName,
     address: payload.address,
     city: payload.city,
     country: payload.country,
@@ -23,6 +25,10 @@ const vendorAgentService = createMasterService({
     stateCode: payload.stateCode || "",
     panNo: payload.panNo || "",
   }),
+  mapUpdatePatch: (patch) => {
+    const nextPatch = { ...patch };
+    return nextPatch;
+  },
 });
 
 module.exports = { vendorAgentService };

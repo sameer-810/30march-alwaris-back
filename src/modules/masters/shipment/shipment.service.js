@@ -1,7 +1,9 @@
 const { shipmentRepository } = require("./shipment.repository");
-const { createMasterService } = require("../shared/createMasterService");
+const {
+  createResourceService,
+} = require("../../common/shared-crud/createResourceService");
 
-const shipmentService = createMasterService({
+const shipmentService = createResourceService({
   repository: shipmentRepository,
   notFoundMessage: "Shipment not found",
   createMethod: "createWithAutoCode",

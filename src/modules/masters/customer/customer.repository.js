@@ -1,15 +1,15 @@
 const { CustomerModel } = require("./customer.model");
-const { CustomerCounterModel } = require("./customer.counter.model");
+const { CounterModel } = require("../../common/shared-crud/counter.model");
 const {
   escapeRegex,
   findActiveById,
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../shared/masterRepositoryHelpers");
+} = require("../../common/shared-crud/resourceRepositoryHelpers");
 
 async function getNextCustomerCode() {
-  const counter = await CustomerCounterModel.findByIdAndUpdate(
+  const counter = await CounterModel.findByIdAndUpdate(
     "customerCode",
     { $inc: { seq: 1 } },
     { upsert: true, new: true, setDefaultsOnInsert: true },

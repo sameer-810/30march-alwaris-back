@@ -3,14 +3,14 @@ const mongoose = require("mongoose");
 const VendorAgentSchema = new mongoose.Schema(
   {
     code: { type: String, required: true, unique: true, index: true },
-    customerTypeId: {
+    vendorTypeId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "CustomerType",
+      ref: "VendorType",
       required: true,
       index: true,
     },
     mail: { type: String, trim: true, default: "" },
-    customerName: { type: String, required: true, trim: true, index: true },
+    vendorName: { type: String, required: true, trim: true, index: true },
     address: { type: String, required: true, trim: true },
     city: { type: String, required: true, trim: true, index: true },
     country: { type: String, required: true, trim: true, index: true },
@@ -38,7 +38,7 @@ const VendorAgentSchema = new mongoose.Schema(
 );
 
 VendorAgentSchema.index({
-  customerName: "text",
+  vendorName: "text",
   emailId: "text",
   city: "text",
   state: "text",

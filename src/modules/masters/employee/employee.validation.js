@@ -4,9 +4,9 @@ const {
   emailSchema,
 } = require("../../../utils/validationPrimitives");
 const {
-  buildMasterListQuerySchema,
-  createMasterCrudSchemas,
-} = require("../shared/masterValidationHelpers");
+  buildResourceListQuerySchema,
+  createResourceCrudSchemas,
+} = require("../../common/shared-crud/resourceValidationHelpers");
 
 const departments = ["HOD", "Marketing", "Accounts", "Other"];
 
@@ -38,7 +38,7 @@ const employeeBodyUpdateSchema = z.object({
   emailId: emailSchema().optional(),
 });
 
-const employeeListQuerySchema = buildMasterListQuerySchema({
+const employeeListQuerySchema = buildResourceListQuerySchema({
   sortByEnum: z.enum(["createdAt", "employeeId", "employeeName"]),
   extraQueryShape: {
     department: z.enum(departments).optional(),
@@ -53,7 +53,7 @@ const {
   getSchema: employeeGetSchema,
   deleteSchema: employeeDeleteSchema,
   listSchema: employeeListSchema,
-} = createMasterCrudSchemas({
+} = createResourceCrudSchemas({
   createBodySchema: employeeBodyCreateSchema,
   updateBodySchema: employeeBodyUpdateSchema,
   listQuerySchema: employeeListQuerySchema,

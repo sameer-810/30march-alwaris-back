@@ -1,8 +1,10 @@
 const { shipmentService } = require("./shipment.service");
 const { toShipmentDto } = require("./shipment.dto");
-const { createMasterController } = require("../shared/createMasterController");
+const {
+  createResourceController,
+} = require("../../common/shared-crud/createResourceController");
 
-const shipmentController = createMasterController({
+const shipmentController = createResourceController({
   service: shipmentService,
   toDto: toShipmentDto,
 });

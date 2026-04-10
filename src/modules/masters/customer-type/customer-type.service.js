@@ -1,7 +1,9 @@
 const { customerTypeRepository } = require("./customer-type.repository");
-const { createMasterService } = require("../shared/createMasterService");
+const {
+  createResourceService,
+} = require("../../common/shared-crud/createResourceService");
 
-const customerTypeService = createMasterService({
+const customerTypeService = createResourceService({
   repository: customerTypeRepository,
   notFoundMessage: "Customer type not found",
   createMethod: "createWithAutoCode",

@@ -1,12 +1,12 @@
 const { VendorAgentModel } = require("./vendor-agent.model");
-const { VendorAgentCounterModel } = require("./vendor-agent.counter.model");
+const { CounterModel } = require("../../common/shared-crud/counter.model");
 const {
   escapeRegex,
   findActiveById,
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../shared/masterRepositoryHelpers");
+} = require("../../common/shared-crud/resourceRepositoryHelpers");
 
 const CODE_PREFIX = "IC";
 const CODE_PAD = 4;
@@ -16,7 +16,7 @@ function formatCode(seq) {
 }
 
 async function getNextVendorAgentCode() {
-  const counter = await VendorAgentCounterModel.findByIdAndUpdate(
+  const counter = await CounterModel.findByIdAndUpdate(
     "vendorAgentCode",
     { $inc: { seq: 1 } },
     { upsert: true, new: true, setDefaultsOnInsert: true },
@@ -50,8 +50,8 @@ async function ensureLegacyCodes() {
 const vendorAgentRepository = {
   findById(id) {
     return findActiveById(VendorAgentModel, id, {
-      path: "customerTypeId",
-      select: "customerType",
+      path: "vendorTypeId",
+      select: "vendorType",
     });
   },
 
@@ -60,17 +60,19 @@ const vendorAgentRepository = {
     return VendorAgentModel.create({ ...data, code });
   },
 
-  async findMany({ search, customerTypeId, page, limit, sortBy, sortDir }) {
+  async findMany({ search, vendorTypeId, page, limit, sortBy, sortDir }) {
     await ensureLegacyCodes();
 
     const q = { isDeleted: false };
-    if (customerTypeId) q.customerTypeId = customerTypeId;
+    if (vendorTypeId) q.vendorTypeId = vendorTypeId;
+
+    const resolvedSortBy = sortBy;
 
     if (search) {
       const safeSearch = escapeRegex(search);
       q.$or = [
         { code: { $regex: safeSearch, $options: "i" } },
-        { customerName: { $regex: safeSearch, $options: "i" } },
+        { vendorName: { $regex: safeSearch, $options: "i" } },
         { emailId: { $regex: safeSearch, $options: "i" } },
         { city: { $regex: safeSearch, $options: "i" } },
         { state: { $regex: safeSearch, $options: "i" } },
@@ -84,16 +86,16 @@ const vendorAgentRepository = {
       query: q,
       page,
       limit,
-      sortBy,
+      sortBy: resolvedSortBy,
       sortDir,
-      populate: { path: "customerTypeId", select: "customerType" },
+      populate: { path: "vendorTypeId", select: "vendorType" },
     });
   },
 
   updateById(id, patch) {
     return updateActiveById(VendorAgentModel, id, patch, {
-      path: "customerTypeId",
-      select: "customerType",
+      path: "vendorTypeId",
+      select: "vendorType",
     });
   },
 

@@ -1,8 +1,10 @@
 const { employeeService } = require("./employee.service");
 const { toEmployeeDto } = require("./employee.dto");
-const { createMasterController } = require("../shared/createMasterController");
+const {
+  createResourceController,
+} = require("../../common/shared-crud/createResourceController");
 
-const employeeController = createMasterController({
+const employeeController = createResourceController({
   service: employeeService,
   toDto: toEmployeeDto,
 });

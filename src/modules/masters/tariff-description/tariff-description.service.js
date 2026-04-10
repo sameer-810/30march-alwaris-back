@@ -1,9 +1,11 @@
 const {
   tariffDescriptionRepository,
 } = require("./tariff-description.repository");
-const { createMasterService } = require("../shared/createMasterService");
+const {
+  createResourceService,
+} = require("../../common/shared-crud/createResourceService");
 
-const tariffDescriptionService = createMasterService({
+const tariffDescriptionService = createResourceService({
   repository: tariffDescriptionRepository,
   notFoundMessage: "Tariff description not found",
   createMethod: "createWithAutoCounter",

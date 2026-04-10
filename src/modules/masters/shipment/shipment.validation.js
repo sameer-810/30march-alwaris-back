@@ -1,8 +1,8 @@
 const { z } = require("zod");
 const {
-  buildMasterListQuerySchema,
-  createMasterCrudSchemas,
-} = require("../shared/masterValidationHelpers");
+  buildResourceListQuerySchema,
+  createResourceCrudSchemas,
+} = require("../../common/shared-crud/resourceValidationHelpers");
 
 const shipmentBodyCreateSchema = z.object({
   shipmentType: z.string().trim().min(1, "Shipment Type is required"),
@@ -12,7 +12,7 @@ const shipmentBodyUpdateSchema = z.object({
   shipmentType: z.string().trim().min(1).optional(),
 });
 
-const shipmentListQuerySchema = buildMasterListQuerySchema({
+const shipmentListQuerySchema = buildResourceListQuerySchema({
   sortByEnum: z.enum(["createdAt", "shipmentType", "code"]),
 });
 
@@ -22,7 +22,7 @@ const {
   getSchema: shipmentGetSchema,
   deleteSchema: shipmentDeleteSchema,
   listSchema: shipmentListSchema,
-} = createMasterCrudSchemas({
+} = createResourceCrudSchemas({
   createBodySchema: shipmentBodyCreateSchema,
   updateBodySchema: shipmentBodyUpdateSchema,
   listQuerySchema: shipmentListQuerySchema,

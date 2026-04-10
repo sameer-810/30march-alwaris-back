@@ -1,0 +1,37 @@
+const { z } = require("zod");
+const {
+  buildResourceListQuerySchema,
+  createResourceCrudSchemas,
+} = require("../../common/shared-crud/resourceValidationHelpers");
+
+const vendorTypeBodyCreateSchema = z.object({
+  vendorType: z.string().trim().min(1, "Vendor Type is required"),
+});
+
+const vendorTypeBodyUpdateSchema = z.object({
+  vendorType: z.string().trim().min(1).optional(),
+});
+
+const vendorTypeListQuerySchema = buildResourceListQuerySchema({
+  sortByEnum: z.enum(["createdAt", "vendorType", "code"]),
+});
+
+const {
+  createSchema: vendorTypeCreateSchema,
+  updateSchema: vendorTypeUpdateSchema,
+  getSchema: vendorTypeGetSchema,
+  deleteSchema: vendorTypeDeleteSchema,
+  listSchema: vendorTypeListSchema,
+} = createResourceCrudSchemas({
+  createBodySchema: vendorTypeBodyCreateSchema,
+  updateBodySchema: vendorTypeBodyUpdateSchema,
+  listQuerySchema: vendorTypeListQuerySchema,
+});
+
+module.exports = {
+  vendorTypeCreateSchema,
+  vendorTypeUpdateSchema,
+  vendorTypeGetSchema,
+  vendorTypeDeleteSchema,
+  vendorTypeListSchema,
+};

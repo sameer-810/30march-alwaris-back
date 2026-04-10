@@ -1,7 +1,5 @@
 const { TariffDescriptionModel } = require("./tariff-description.model");
-const {
-  TariffDescriptionCounterModel,
-} = require("./tariff-description.counter.model");
+const { CounterModel } = require("../../common/shared-crud/counter.model");
 const {
   createCounterFieldHelpers,
   escapeRegex,
@@ -9,11 +7,11 @@ const {
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../shared/masterRepositoryHelpers");
+} = require("../../common/shared-crud/resourceRepositoryHelpers");
 
 const counterHelpers = createCounterFieldHelpers({
   model: TariffDescriptionModel,
-  counterModel: TariffDescriptionCounterModel,
+  counterModel: CounterModel,
   counterId: "tariffDescriptionCounter",
   fieldName: "counter",
 });

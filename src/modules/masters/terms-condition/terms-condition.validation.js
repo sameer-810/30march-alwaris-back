@@ -1,9 +1,9 @@
 const { z } = require("zod");
 const { objectIdSchema } = require("../../../utils/validationPrimitives");
 const {
-  buildMasterListQuerySchema,
-  createMasterCrudSchemas,
-} = require("../shared/masterValidationHelpers");
+  buildResourceListQuerySchema,
+  createResourceCrudSchemas,
+} = require("../../common/shared-crud/resourceValidationHelpers");
 
 const termsConditionBodyCreateSchema = z.object({
   lineOfBixId: objectIdSchema,
@@ -15,7 +15,7 @@ const termsConditionBodyUpdateSchema = z.object({
   description: z.string().trim().min(1).optional(),
 });
 
-const termsConditionListQuerySchema = buildMasterListQuerySchema({
+const termsConditionListQuerySchema = buildResourceListQuerySchema({
   sortByEnum: z.enum(["createdAt", "counter", "description"]),
 });
 
@@ -25,7 +25,7 @@ const {
   getSchema: termsConditionGetSchema,
   deleteSchema: termsConditionDeleteSchema,
   listSchema: termsConditionListSchema,
-} = createMasterCrudSchemas({
+} = createResourceCrudSchemas({
   createBodySchema: termsConditionBodyCreateSchema,
   updateBodySchema: termsConditionBodyUpdateSchema,
   listQuerySchema: termsConditionListQuerySchema,

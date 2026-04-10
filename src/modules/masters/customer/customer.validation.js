@@ -5,9 +5,9 @@ const {
   emailSchema,
 } = require("../../../utils/validationPrimitives");
 const {
-  buildMasterListQuerySchema,
-  createMasterCrudSchemas,
-} = require("../shared/masterValidationHelpers");
+  buildResourceListQuerySchema,
+  createResourceCrudSchemas,
+} = require("../../common/shared-crud/resourceValidationHelpers");
 
 const emailListSchema = z.array(emailSchema("Invalid Email ID")).max(20);
 
@@ -49,7 +49,7 @@ const customerBodyUpdateSchema = z.object({
   panNo: z.string().trim().optional(),
 });
 
-const customerListQuerySchema = buildMasterListQuerySchema({
+const customerListQuerySchema = buildResourceListQuerySchema({
   sortByEnum: z.enum(["createdAt", "code", "customerName"]),
   extraQueryShape: {
     customerTypeId: objectIdSchema.optional(),
@@ -62,7 +62,7 @@ const {
   getSchema: customerGetSchema,
   deleteSchema: customerDeleteSchema,
   listSchema: customerListSchema,
-} = createMasterCrudSchemas({
+} = createResourceCrudSchemas({
   createBodySchema: customerBodyCreateSchema,
   updateBodySchema: customerBodyUpdateSchema,
   listQuerySchema: customerListQuerySchema,

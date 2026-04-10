@@ -23,6 +23,9 @@ const lineOfBixRoutes = require("./modules/masters/line-of-bix/line-of-bix.route
 const termsConditionRoutes = require("./modules/masters/terms-condition/terms-condition.routes");
 const tariffDescriptionRoutes = require("./modules/masters/tariff-description/tariff-description.routes");
 const vendorAgentRoutes = require("./modules/masters/vendor-agent/vendor-agent.routes");
+const vendorTypeRoutes = require("./modules/masters/vendor-type/vendor-type.routes");
+const bookingRoutes = require("./modules/booking/booking.routes");
+const billOfLadingRoutes = require("./modules/bill-of-lading/bill-of-lading.routes");
 
 const app = express();
 
@@ -73,7 +76,10 @@ app.use("/api/v1/shipments", shipmentRoutes);
 app.use("/api/v1/line-of-bix", lineOfBixRoutes);
 app.use("/api/v1/terms-conditions", termsConditionRoutes);
 app.use("/api/v1/tariff-descriptions", tariffDescriptionRoutes);
+app.use("/api/v1/vendor-types", vendorTypeRoutes);
 app.use("/api/v1/vendor-agents", vendorAgentRoutes);
+app.use("/api/v1/bookings", bookingRoutes);
+app.use("/api/v1/bill-of-lading", billOfLadingRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

@@ -1,7 +1,9 @@
 const { lineOfBixRepository } = require("./line-of-bix.repository");
-const { createMasterService } = require("../shared/createMasterService");
+const {
+  createResourceService,
+} = require("../../common/shared-crud/createResourceService");
 
-const lineOfBixService = createMasterService({
+const lineOfBixService = createResourceService({
   repository: lineOfBixRepository,
   notFoundMessage: "Line Of BIX not found",
   createMethod: "createWithAutoCounter",

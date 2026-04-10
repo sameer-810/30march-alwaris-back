@@ -1,8 +1,8 @@
 const { z } = require("zod");
 const {
-  buildMasterListQuerySchema,
-  createMasterCrudSchemas,
-} = require("../shared/masterValidationHelpers");
+  buildResourceListQuerySchema,
+  createResourceCrudSchemas,
+} = require("../../common/shared-crud/resourceValidationHelpers");
 
 const termsBodyCreateSchema = z.object({
   terms: z.string().trim().min(1, "Terms is required"),
@@ -14,7 +14,7 @@ const termsBodyUpdateSchema = z.object({
   description: z.string().trim().min(1).optional(),
 });
 
-const termsListQuerySchema = buildMasterListQuerySchema({
+const termsListQuerySchema = buildResourceListQuerySchema({
   sortByEnum: z.enum(["createdAt", "terms", "description", "code"]),
 });
 
@@ -24,7 +24,7 @@ const {
   getSchema: termsGetSchema,
   deleteSchema: termsDeleteSchema,
   listSchema: termsListSchema,
-} = createMasterCrudSchemas({
+} = createResourceCrudSchemas({
   createBodySchema: termsBodyCreateSchema,
   updateBodySchema: termsBodyUpdateSchema,
   listQuerySchema: termsListQuerySchema,

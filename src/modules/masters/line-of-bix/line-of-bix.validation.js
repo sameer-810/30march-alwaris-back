@@ -1,8 +1,8 @@
 const { z } = require("zod");
 const {
-  buildMasterListQuerySchema,
-  createMasterCrudSchemas,
-} = require("../shared/masterValidationHelpers");
+  buildResourceListQuerySchema,
+  createResourceCrudSchemas,
+} = require("../../common/shared-crud/resourceValidationHelpers");
 
 const lineOfBixBodyCreateSchema = z.object({
   code: z.string().trim().min(1, "Code is required"),
@@ -14,7 +14,7 @@ const lineOfBixBodyUpdateSchema = z.object({
   lineOfBix: z.string().trim().min(1).optional(),
 });
 
-const lineOfBixListQuerySchema = buildMasterListQuerySchema({
+const lineOfBixListQuerySchema = buildResourceListQuerySchema({
   sortByEnum: z.enum(["createdAt", "counter", "code", "lineOfBix"]),
 });
 
@@ -24,7 +24,7 @@ const {
   getSchema: lineOfBixGetSchema,
   deleteSchema: lineOfBixDeleteSchema,
   listSchema: lineOfBixListSchema,
-} = createMasterCrudSchemas({
+} = createResourceCrudSchemas({
   createBodySchema: lineOfBixBodyCreateSchema,
   updateBodySchema: lineOfBixBodyUpdateSchema,
   listQuerySchema: lineOfBixListQuerySchema,

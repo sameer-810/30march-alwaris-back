@@ -1,7 +1,5 @@
 const { TermsConditionModel } = require("./terms-condition.model");
-const {
-  TermsConditionCounterModel,
-} = require("./terms-condition.counter.model");
+const { CounterModel } = require("../../common/shared-crud/counter.model");
 const { LineOfBixModel } = require("../line-of-bix/line-of-bix.model");
 const {
   createCounterFieldHelpers,
@@ -10,11 +8,11 @@ const {
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../shared/masterRepositoryHelpers");
+} = require("../../common/shared-crud/resourceRepositoryHelpers");
 
 const counterHelpers = createCounterFieldHelpers({
   model: TermsConditionModel,
-  counterModel: TermsConditionCounterModel,
+  counterModel: CounterModel,
   counterId: "termsConditionCounter",
   fieldName: "counter",
 });

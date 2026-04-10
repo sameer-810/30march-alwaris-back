@@ -1,8 +1,8 @@
 const { z } = require("zod");
 const {
-  buildMasterListQuerySchema,
-  createMasterCrudSchemas,
-} = require("../shared/masterValidationHelpers");
+  buildResourceListQuerySchema,
+  createResourceCrudSchemas,
+} = require("../../common/shared-crud/resourceValidationHelpers");
 
 const portBodyCreateSchema = z.object({
   portCode: z.string().trim().min(1, "Port Code is required"),
@@ -14,7 +14,7 @@ const portBodyUpdateSchema = z.object({
   portName: z.string().trim().min(1).optional(),
 });
 
-const portListQuerySchema = buildMasterListQuerySchema({
+const portListQuerySchema = buildResourceListQuerySchema({
   sortByEnum: z.enum(["createdAt", "portCode", "portName", "code"]),
 });
 
@@ -24,7 +24,7 @@ const {
   getSchema: portGetSchema,
   deleteSchema: portDeleteSchema,
   listSchema: portListSchema,
-} = createMasterCrudSchemas({
+} = createResourceCrudSchemas({
   createBodySchema: portBodyCreateSchema,
   updateBodySchema: portBodyUpdateSchema,
   listQuerySchema: portListQuerySchema,

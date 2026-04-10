@@ -1,5 +1,5 @@
 const { LineOfBixModel } = require("./line-of-bix.model");
-const { LineOfBixCounterModel } = require("./line-of-bix.counter.model");
+const { CounterModel } = require("../../common/shared-crud/counter.model");
 const {
   createCounterFieldHelpers,
   escapeRegex,
@@ -7,11 +7,11 @@ const {
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../shared/masterRepositoryHelpers");
+} = require("../../common/shared-crud/resourceRepositoryHelpers");
 
 const counterHelpers = createCounterFieldHelpers({
   model: LineOfBixModel,
-  counterModel: LineOfBixCounterModel,
+  counterModel: CounterModel,
   counterId: "lineOfBixCounter",
   fieldName: "counter",
 });

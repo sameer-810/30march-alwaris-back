@@ -1,8 +1,8 @@
 const { z } = require("zod");
 const {
-  buildMasterListQuerySchema,
-  createMasterCrudSchemas,
-} = require("../shared/masterValidationHelpers");
+  buildResourceListQuerySchema,
+  createResourceCrudSchemas,
+} = require("../../common/shared-crud/resourceValidationHelpers");
 
 const tariffDescriptionBodyCreateSchema = z.object({
   description: z.string().trim().min(1, "Tariff Description is required"),
@@ -12,7 +12,7 @@ const tariffDescriptionBodyUpdateSchema = z.object({
   description: z.string().trim().min(1).optional(),
 });
 
-const tariffDescriptionListQuerySchema = buildMasterListQuerySchema({
+const tariffDescriptionListQuerySchema = buildResourceListQuerySchema({
   sortByEnum: z.enum(["createdAt", "counter", "description"]),
 });
 
@@ -22,7 +22,7 @@ const {
   getSchema: tariffDescriptionGetSchema,
   deleteSchema: tariffDescriptionDeleteSchema,
   listSchema: tariffDescriptionListSchema,
-} = createMasterCrudSchemas({
+} = createResourceCrudSchemas({
   createBodySchema: tariffDescriptionBodyCreateSchema,
   updateBodySchema: tariffDescriptionBodyUpdateSchema,
   listQuerySchema: tariffDescriptionListQuerySchema,

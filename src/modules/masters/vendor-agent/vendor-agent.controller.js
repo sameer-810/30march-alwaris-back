@@ -1,8 +1,10 @@
 const { vendorAgentService } = require("./vendor-agent.service");
 const { toVendorAgentDto } = require("./vendor-agent.dto");
-const { createMasterController } = require("../shared/createMasterController");
+const {
+  createResourceController,
+} = require("../../common/shared-crud/createResourceController");
 
-const vendorAgentController = createMasterController({
+const vendorAgentController = createResourceController({
   service: vendorAgentService,
   toDto: toVendorAgentDto,
 });

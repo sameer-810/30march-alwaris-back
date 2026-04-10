@@ -1,8 +1,8 @@
 const { z } = require("zod");
 const {
-  buildMasterListQuerySchema,
-  createMasterCrudSchemas,
-} = require("../shared/masterValidationHelpers");
+  buildResourceListQuerySchema,
+  createResourceCrudSchemas,
+} = require("../../common/shared-crud/resourceValidationHelpers");
 
 const serviceBodyCreateSchema = z.object({
   serviceType: z.string().trim().min(1, "Service Type is required"),
@@ -12,7 +12,7 @@ const serviceBodyUpdateSchema = z.object({
   serviceType: z.string().trim().min(1).optional(),
 });
 
-const serviceListQuerySchema = buildMasterListQuerySchema({
+const serviceListQuerySchema = buildResourceListQuerySchema({
   sortByEnum: z.enum(["createdAt", "serviceType", "code"]),
 });
 
@@ -22,7 +22,7 @@ const {
   getSchema: serviceGetSchema,
   deleteSchema: serviceDeleteSchema,
   listSchema: serviceListSchema,
-} = createMasterCrudSchemas({
+} = createResourceCrudSchemas({
   createBodySchema: serviceBodyCreateSchema,
   updateBodySchema: serviceBodyUpdateSchema,
   listQuerySchema: serviceListQuerySchema,

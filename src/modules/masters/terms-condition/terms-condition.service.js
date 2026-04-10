@@ -1,8 +1,10 @@
 const { AppError } = require("../../../utils/AppError");
 const { termsConditionRepository } = require("./terms-condition.repository");
-const { createMasterService } = require("../shared/createMasterService");
+const {
+  createResourceService,
+} = require("../../common/shared-crud/createResourceService");
 
-const termsConditionService = createMasterService({
+const termsConditionService = createResourceService({
   repository: termsConditionRepository,
   notFoundMessage: "Terms & Condition not found",
   createMethod: "createWithAutoCounter",
