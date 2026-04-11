@@ -26,6 +26,7 @@ const vendorAgentRoutes = require("./modules/masters/vendor-agent/vendor-agent.r
 const vendorTypeRoutes = require("./modules/masters/vendor-type/vendor-type.routes");
 const bookingRoutes = require("./modules/booking/booking.routes");
 const billOfLadingRoutes = require("./modules/bill-of-lading/bill-of-lading.routes");
+const vendorDocumentsRoutes = require("./modules/vendor-documents/vendor-documents.routes");
 
 const app = express();
 
@@ -80,6 +81,7 @@ app.use("/api/v1/vendor-types", vendorTypeRoutes);
 app.use("/api/v1/vendor-agents", vendorAgentRoutes);
 app.use("/api/v1/bookings", bookingRoutes);
 app.use("/api/v1/bill-of-lading", billOfLadingRoutes);
+app.use("/api/v1/vendor-documents", vendorDocumentsRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

@@ -1,8 +1,7 @@
 const { UserModel } = require("./user.model");
-
-function escapeRegex(value) {
-  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
+const {
+  escapeRegex,
+} = require("../common/shared-crud/resourceRepositoryHelpers");
 
 const userRepository = {
   create(data) {

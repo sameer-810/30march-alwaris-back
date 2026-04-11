@@ -22,6 +22,10 @@ const env = Object.freeze({
   JWT_ACCESS_SECRET: required("JWT_ACCESS_SECRET"),
   JWT_ACCESS_EXPIRES_IN: process.env.JWT_ACCESS_EXPIRES_IN || "1d",
   CORS_ORIGIN: corsOrigin,
+  AWS_REGION: required("AWS_REGION"),
+  AWS_S3_BUCKET: required("AWS_S3_BUCKET"),
+  AWS_ACCESS_KEY_ID: required("AWS_ACCESS_KEY_ID"),
+  AWS_SECRET_ACCESS_KEY: required("AWS_SECRET_ACCESS_KEY"),
 });
 
 module.exports = { env };
