@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { env } = require("../config/env");
 const { AppError } = require("../utils/AppError");
+const { logger } = require("../config/logger");
 const { userRepository } = require("../modules/user/user.repository");
 
 async function authenticate(req, _res, next) {
@@ -23,8 +24,8 @@ async function authenticate(req, _res, next) {
     };
     next();
   } catch (err) {
-    if (process.env.NODE_ENV !== "production") {
-      console.error("Authentication error:", err);
+    if (env.NODE_ENV !== "production") {
+      logger.debug(err, "Authentication error");
     }
     next(new AppError("Unauthorized", 401));
   }

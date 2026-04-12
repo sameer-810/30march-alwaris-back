@@ -1,4 +1,5 @@
 const { AppError } = require("../utils/AppError");
+const { logger } = require("../config/logger");
 
 const STATUS_CODE_TO_ERROR_CODE = {
   400: "BAD_REQUEST",
@@ -25,8 +26,10 @@ function errorHandler(err, _req, res, _next) {
   const details = isAppError ? err.details : undefined;
   const code = getErrorCode(statusCode, err, isAppError);
 
-  if (process.env.NODE_ENV !== "production") {
-    console.error(err);
+  if (statusCode >= 500) {
+    logger.error(err, "Unhandled server error");
+  } else if (process.env.NODE_ENV !== "production") {
+    logger.debug(err, "Request error");
   }
 
   res.status(statusCode).json({

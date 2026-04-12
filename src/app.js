@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-const morgan = require("morgan");
+const pinoHttp = require("pino-http");
+const { logger } = require("./config/logger");
 const rateLimit = require("express-rate-limit");
 
 const { env } = require("./config/env");
@@ -48,7 +49,7 @@ app.use(
 );
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan(env.NODE_ENV === "production" ? "combined" : "dev"));
+app.use(pinoHttp({ logger, autoLogging: true }));
 app.use(
   rateLimit({
     windowMs: 60 * 1000,
