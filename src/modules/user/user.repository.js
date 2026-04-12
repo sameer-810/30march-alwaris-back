@@ -35,7 +35,12 @@ const userRepository = {
     return Promise.all([
       UserModel.find(q).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
       UserModel.countDocuments(q),
-    ]).then(([items, total]) => ({ items, total }));
+    ]).then(([items, total]) => {
+      const totalPages = Math.ceil(total / limit);
+      const hasNextPage = page < totalPages;
+      const hasPrevPage = page > 1;
+      return { items, total, totalPages, page, limit, hasNextPage, hasPrevPage };
+    });
   },
 
   updateById(id, patch) {

@@ -9,10 +9,10 @@ function createResourceController({ service, toDto }) {
     }),
 
     list: asyncHandler(async (req, res) => {
-      const { items, total } = await service.list(req.validated.query);
+      const { items, ...meta } = await service.list(req.validated.query);
       sendSuccess(res, {
         data: items.map((item) => toDto(item)),
-        meta: { total },
+        meta,
       });
     }),
 

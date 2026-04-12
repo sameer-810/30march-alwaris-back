@@ -10,10 +10,10 @@ const userController = {
   }),
 
   list: asyncHandler(async (req, res) => {
-    const { items, total } = await userService.listUsers(req.validated.query);
+    const { items, ...meta } = await userService.listUsers(req.validated.query);
     sendSuccess(res, {
       data: items.map((i) => toUserDto(i)),
-      meta: { total },
+      meta,
     });
   }),
 
