@@ -39,7 +39,15 @@ const userRepository = {
       const totalPages = Math.ceil(total / limit);
       const hasNextPage = page < totalPages;
       const hasPrevPage = page > 1;
-      return { items, total, totalPages, page, limit, hasNextPage, hasPrevPage };
+      return {
+        items,
+        total,
+        totalPages,
+        page,
+        limit,
+        hasNextPage,
+        hasPrevPage,
+      };
     });
   },
 
