@@ -1,106 +1,75 @@
 const { sendSuccess } = require("../../utils/response");
+const { asyncHandler } = require("../../utils/asyncHandler");
 const { vendorDocumentsService } = require("./vendor-documents.service");
 
 const vendorDocumentsController = {
-  async jobOptions(_req, res, next) {
-    try {
-      const data = await vendorDocumentsService.getJobOptions();
-      sendSuccess(res, { data });
-    } catch (error) {
-      next(error);
-    }
-  },
+  jobOptions: asyncHandler(async (_req, res) => {
+    const data = await vendorDocumentsService.getJobOptions();
+    sendSuccess(res, { data });
+  }),
 
-  async byJob(req, res, next) {
-    try {
-      const jobNo = req.validated.params.jobNo;
-      const data = await vendorDocumentsService.getByJobNo(jobNo);
-      sendSuccess(res, { data });
-    } catch (error) {
-      next(error);
-    }
-  },
+  byJob: asyncHandler(async (req, res) => {
+    const jobNo = req.validated.params.jobNo;
+    const data = await vendorDocumentsService.getByJobNo(jobNo);
+    sendSuccess(res, { data });
+  }),
 
-  async presignMasterBl(req, res, next) {
-    try {
-      const jobNo = req.validated.params.jobNo;
-      const data = await vendorDocumentsService.createMasterBlUploadUrl(
-        jobNo,
-        req.validated.body,
-      );
-      sendSuccess(res, { data });
-    } catch (error) {
-      next(error);
-    }
-  },
+  presignMasterBl: asyncHandler(async (req, res) => {
+    const jobNo = req.validated.params.jobNo;
+    const data = await vendorDocumentsService.createMasterBlUploadUrl(
+      jobNo,
+      req.validated.body,
+    );
+    sendSuccess(res, { data });
+  }),
 
-  async completeMasterBl(req, res, next) {
-    try {
-      const jobNo = req.validated.params.jobNo;
-      const data = await vendorDocumentsService.completeMasterBlUpload(
-        jobNo,
-        req.validated.body,
-      );
-      sendSuccess(res, { data, message: "Master BL uploaded" });
-    } catch (error) {
-      next(error);
-    }
-  },
+  completeMasterBl: asyncHandler(async (req, res) => {
+    const jobNo = req.validated.params.jobNo;
+    const data = await vendorDocumentsService.completeMasterBlUpload(
+      jobNo,
+      req.validated.body,
+    );
+    sendSuccess(res, { data, message: "Master BL uploaded" });
+  }),
 
-  async masterBlDownload(req, res, next) {
-    try {
-      const jobNo = req.validated.params.jobNo;
-      const downloadUrl =
-        await vendorDocumentsService.getMasterBlDownloadUrl(jobNo);
-      sendSuccess(res, { data: { downloadUrl } });
-    } catch (error) {
-      next(error);
-    }
-  },
+  masterBlDownload: asyncHandler(async (req, res) => {
+    const jobNo = req.validated.params.jobNo;
+    const downloadUrl =
+      await vendorDocumentsService.getMasterBlDownloadUrl(jobNo);
+    sendSuccess(res, { data: { downloadUrl } });
+  }),
 
-  async presignVendorRow(req, res, next) {
-    try {
-      const jobNo = req.validated.params.jobNo;
-      const rowKey = req.validated.params.rowKey;
-      const data = await vendorDocumentsService.createVendorRowUploadUrl(
-        jobNo,
-        rowKey,
-        req.validated.body,
-      );
-      sendSuccess(res, { data });
-    } catch (error) {
-      next(error);
-    }
-  },
+  presignVendorRow: asyncHandler(async (req, res) => {
+    const jobNo = req.validated.params.jobNo;
+    const rowKey = req.validated.params.rowKey;
+    const data = await vendorDocumentsService.createVendorRowUploadUrl(
+      jobNo,
+      rowKey,
+      req.validated.body,
+    );
+    sendSuccess(res, { data });
+  }),
 
-  async completeVendorRow(req, res, next) {
-    try {
-      const jobNo = req.validated.params.jobNo;
-      const rowKey = req.validated.params.rowKey;
-      const data = await vendorDocumentsService.completeVendorRowUpload(
-        jobNo,
-        rowKey,
-        req.validated.body,
-      );
-      sendSuccess(res, { data, message: "Vendor document uploaded" });
-    } catch (error) {
-      next(error);
-    }
-  },
+  completeVendorRow: asyncHandler(async (req, res) => {
+    const jobNo = req.validated.params.jobNo;
+    const rowKey = req.validated.params.rowKey;
+    const data = await vendorDocumentsService.completeVendorRowUpload(
+      jobNo,
+      rowKey,
+      req.validated.body,
+    );
+    sendSuccess(res, { data, message: "Vendor document uploaded" });
+  }),
 
-  async vendorRowDownload(req, res, next) {
-    try {
-      const jobNo = req.validated.params.jobNo;
-      const rowKey = req.validated.params.rowKey;
-      const downloadUrl = await vendorDocumentsService.getVendorRowDownloadUrl(
-        jobNo,
-        rowKey,
-      );
-      sendSuccess(res, { data: { downloadUrl } });
-    } catch (error) {
-      next(error);
-    }
-  },
+  vendorRowDownload: asyncHandler(async (req, res) => {
+    const jobNo = req.validated.params.jobNo;
+    const rowKey = req.validated.params.rowKey;
+    const downloadUrl = await vendorDocumentsService.getVendorRowDownloadUrl(
+      jobNo,
+      rowKey,
+    );
+    sendSuccess(res, { data: { downloadUrl } });
+  }),
 };
 
 module.exports = { vendorDocumentsController };

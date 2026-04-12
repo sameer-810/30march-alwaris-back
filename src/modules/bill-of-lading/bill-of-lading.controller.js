@@ -2,6 +2,7 @@ const {
   createResourceController,
 } = require("../common/shared-crud/createResourceController");
 const { sendSuccess } = require("../../utils/response");
+const { asyncHandler } = require("../../utils/asyncHandler");
 const { billOfLadingService } = require("./bill-of-lading.service");
 const { toBillOfLadingDto } = require("./bill-of-lading.dto");
 
@@ -13,23 +14,15 @@ const billOfLadingCrudController = createResourceController({
 const billOfLadingController = {
   ...billOfLadingCrudController,
 
-  async nextBlNumber(_req, res, next) {
-    try {
-      const blNumber = await billOfLadingService.getNextBlNumber();
-      sendSuccess(res, { data: { blNumber } });
-    } catch (error) {
-      next(error);
-    }
-  },
+  nextBlNumber: asyncHandler(async (_req, res) => {
+    const blNumber = await billOfLadingService.getNextBlNumber();
+    sendSuccess(res, { data: { blNumber } });
+  }),
 
-  async jobOptions(_req, res, next) {
-    try {
-      const options = await billOfLadingService.getJobOptions();
-      sendSuccess(res, { data: options });
-    } catch (error) {
-      next(error);
-    }
-  },
+  jobOptions: asyncHandler(async (_req, res) => {
+    const options = await billOfLadingService.getJobOptions();
+    sendSuccess(res, { data: options });
+  }),
 };
 
 module.exports = {

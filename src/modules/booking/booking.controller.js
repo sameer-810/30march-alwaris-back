@@ -4,6 +4,7 @@ const {
   createResourceController,
 } = require("../common/shared-crud/createResourceController");
 const { sendSuccess } = require("../../utils/response");
+const { asyncHandler } = require("../../utils/asyncHandler");
 
 const bookingCrudController = createResourceController({
   service: bookingService,
@@ -12,14 +13,10 @@ const bookingCrudController = createResourceController({
 
 const bookingController = {
   ...bookingCrudController,
-  async nextReference(_req, res, next) {
-    try {
-      const generatedReference = await bookingService.getNextReference();
-      sendSuccess(res, { data: { generatedReference } });
-    } catch (e) {
-      next(e);
-    }
-  },
+  nextReference: asyncHandler(async (_req, res) => {
+    const generatedReference = await bookingService.getNextReference();
+    sendSuccess(res, { data: { generatedReference } });
+  }),
 };
 
 module.exports = { bookingController };

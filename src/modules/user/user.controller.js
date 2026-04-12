@@ -1,61 +1,42 @@
 const { userService } = require("./user.service");
 const { toUserDto } = require("./user.dto");
 const { sendNoContent, sendSuccess } = require("../../utils/response");
+const { asyncHandler } = require("../../utils/asyncHandler");
 
 const userController = {
-  async create(req, res, next) {
-    try {
-      const created = await userService.createUser(req.validated.body);
-      sendSuccess(res, { statusCode: 201, data: toUserDto(created) });
-    } catch (e) {
-      next(e);
-    }
-  },
+  create: asyncHandler(async (req, res) => {
+    const created = await userService.createUser(req.validated.body);
+    sendSuccess(res, { statusCode: 201, data: toUserDto(created) });
+  }),
 
-  async list(req, res, next) {
-    try {
-      const { items, total } = await userService.listUsers(req.validated.query);
-      sendSuccess(res, {
-        data: items.map((i) => toUserDto(i)),
-        meta: { total },
-      });
-    } catch (e) {
-      next(e);
-    }
-  },
+  list: asyncHandler(async (req, res) => {
+    const { items, total } = await userService.listUsers(req.validated.query);
+    sendSuccess(res, {
+      data: items.map((i) => toUserDto(i)),
+      meta: { total },
+    });
+  }),
 
-  async update(req, res, next) {
-    try {
-      const updated = await userService.updateUser(
-        req.validated.params.id,
-        req.validated.body,
-      );
-      sendSuccess(res, { data: toUserDto(updated) });
-    } catch (e) {
-      next(e);
-    }
-  },
+  update: asyncHandler(async (req, res) => {
+    const updated = await userService.updateUser(
+      req.validated.params.id,
+      req.validated.body,
+    );
+    sendSuccess(res, { data: toUserDto(updated) });
+  }),
 
-  async resetPassword(req, res, next) {
-    try {
-      const updated = await userService.resetPassword(
-        req.validated.params.id,
-        req.validated.body.password,
-      );
-      sendSuccess(res, { data: toUserDto(updated) });
-    } catch (e) {
-      next(e);
-    }
-  },
+  resetPassword: asyncHandler(async (req, res) => {
+    const updated = await userService.resetPassword(
+      req.validated.params.id,
+      req.validated.body.password,
+    );
+    sendSuccess(res, { data: toUserDto(updated) });
+  }),
 
-  async remove(req, res, next) {
-    try {
-      await userService.deleteUser(req.validated.params.id);
-      sendNoContent(res);
-    } catch (e) {
-      next(e);
-    }
-  },
+  remove: asyncHandler(async (req, res) => {
+    await userService.deleteUser(req.validated.params.id);
+    sendNoContent(res);
+  }),
 };
 
 module.exports = { userController };
