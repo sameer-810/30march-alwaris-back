@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const ServiceSchema = new mongoose.Schema(
   {
@@ -20,4 +20,4 @@ ServiceSchema.index({ serviceType: "text" });
 
 const ServiceModel = mongoose.model("Service", ServiceSchema);
 
-module.exports = { ServiceModel };
+export { ServiceModel };

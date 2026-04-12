@@ -9,4 +9,4 @@ function toTermsDto(doc) {
   };
 }
 
-module.exports = { toTermsDto };
+export { toTermsDto };

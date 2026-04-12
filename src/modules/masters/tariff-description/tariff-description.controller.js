@@ -1,12 +1,10 @@
-const { tariffDescriptionService } = require("./tariff-description.service");
-const { toTariffDescriptionDto } = require("./tariff-description.dto");
-const {
-  createResourceController,
-} = require("../../common/shared-crud/createResourceController");
+import { tariffDescriptionService } from "./tariff-description.service.js";
+import { toTariffDescriptionDto } from "./tariff-description.dto.js";
+import { createResourceController } from "../../common/shared-crud/createResourceController.js";
 
 const tariffDescriptionController = createResourceController({
   service: tariffDescriptionService,
   toDto: toTariffDescriptionDto,
 });
 
-module.exports = { tariffDescriptionController };
+export { tariffDescriptionController };

@@ -1,7 +1,5 @@
-const { vendorTypeRepository } = require("./vendor-type.repository");
-const {
-  createResourceService,
-} = require("../../common/shared-crud/createResourceService");
+import { vendorTypeRepository } from "./vendor-type.repository.js";
+import { createResourceService } from "../../common/shared-crud/createResourceService.js";
 
 const vendorTypeService = createResourceService({
   repository: vendorTypeRepository,
@@ -12,4 +10,4 @@ const vendorTypeService = createResourceService({
   }),
 });
 
-module.exports = { vendorTypeService };
+export { vendorTypeService };

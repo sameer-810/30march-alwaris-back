@@ -1,13 +1,13 @@
-const { z } = require("zod");
-const {
+import { z } from "zod";
+import {
   objectIdSchema,
   searchSchema,
   emptyObjectPassthroughSchema,
-} = require("../../utils/validationPrimitives");
-const {
+} from "../../utils/validationPrimitives.js";
+import {
   buildResourceListQuerySchema,
   createResourceCrudSchemas,
-} = require("../common/shared-crud/resourceValidationHelpers");
+} from "../common/shared-crud/resourceValidationHelpers.js";
 
 const modeOptions = ["Air", "Sea", "Road"];
 const exportOptions = ["Export", "Import", "Cross Trade"];
@@ -137,7 +137,7 @@ const bookingNextReferenceSchema = z.object({
   query: emptyObjectPassthroughSchema,
 });
 
-module.exports = {
+export {
   bookingCreateSchema,
   bookingUpdateSchema,
   bookingGetSchema,

@@ -1,8 +1,8 @@
-const { z } = require("zod");
-const {
+import { z } from "zod";
+import {
   buildResourceListQuerySchema,
   createResourceCrudSchemas,
-} = require("../../common/shared-crud/resourceValidationHelpers");
+} from "../../common/shared-crud/resourceValidationHelpers.js";
 
 const tariffDescriptionBodyCreateSchema = z.object({
   description: z.string().trim().min(1, "Tariff Description is required"),
@@ -28,7 +28,7 @@ const {
   listQuerySchema: tariffDescriptionListQuerySchema,
 });
 
-module.exports = {
+export {
   tariffDescriptionCreateSchema,
   tariffDescriptionUpdateSchema,
   tariffDescriptionGetSchema,

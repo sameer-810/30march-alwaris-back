@@ -1,15 +1,15 @@
-const express = require("express");
-const { validateRequest } = require("../../../middlewares/validateRequest");
-const { authenticate } = require("../../../middlewares/auth");
-const { authorizeRoles } = require("../../../middlewares/role.middleware");
-const { termsConditionController } = require("./terms-condition.controller");
-const {
+import express from "express";
+import { validateRequest } from "../../../middlewares/validateRequest.js";
+import { authenticate } from "../../../middlewares/auth.js";
+import { authorizeRoles } from "../../../middlewares/role.middleware.js";
+import { termsConditionController } from "./terms-condition.controller.js";
+import {
   termsConditionCreateSchema,
   termsConditionUpdateSchema,
   termsConditionGetSchema,
   termsConditionDeleteSchema,
   termsConditionListSchema,
-} = require("./terms-condition.validation");
+} from "./terms-condition.validation.js";
 
 const router = express.Router();
 
@@ -41,4 +41,4 @@ router.delete(
   termsConditionController.remove,
 );
 
-module.exports = router;
+export default router;

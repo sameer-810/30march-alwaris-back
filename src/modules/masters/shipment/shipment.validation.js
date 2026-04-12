@@ -1,8 +1,8 @@
-const { z } = require("zod");
-const {
+import { z } from "zod";
+import {
   buildResourceListQuerySchema,
   createResourceCrudSchemas,
-} = require("../../common/shared-crud/resourceValidationHelpers");
+} from "../../common/shared-crud/resourceValidationHelpers.js";
 
 const shipmentBodyCreateSchema = z.object({
   shipmentType: z.string().trim().min(1, "Shipment Type is required"),
@@ -28,7 +28,7 @@ const {
   listQuerySchema: shipmentListQuerySchema,
 });
 
-module.exports = {
+export {
   shipmentCreateSchema,
   shipmentUpdateSchema,
   shipmentGetSchema,

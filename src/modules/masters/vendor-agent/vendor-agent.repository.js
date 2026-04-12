@@ -1,12 +1,12 @@
-const { VendorAgentModel } = require("./vendor-agent.model");
-const { CounterModel } = require("../../common/shared-crud/counter.model");
-const {
+import { VendorAgentModel } from "./vendor-agent.model.js";
+import { CounterModel } from "../../common/shared-crud/counter.model.js";
+import {
   escapeRegex,
   findActiveById,
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../../common/shared-crud/resourceRepositoryHelpers");
+} from "../../common/shared-crud/resourceRepositoryHelpers.js";
 
 const CODE_PREFIX = "IC";
 const CODE_PAD = 4;
@@ -104,4 +104,4 @@ const vendorAgentRepository = {
   },
 };
 
-module.exports = { vendorAgentRepository };
+export { vendorAgentRepository };

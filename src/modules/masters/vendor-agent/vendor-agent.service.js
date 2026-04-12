@@ -1,7 +1,5 @@
-const { vendorAgentRepository } = require("./vendor-agent.repository");
-const {
-  createResourceService,
-} = require("../../common/shared-crud/createResourceService");
+import { vendorAgentRepository } from "./vendor-agent.repository.js";
+import { createResourceService } from "../../common/shared-crud/createResourceService.js";
 
 const vendorAgentService = createResourceService({
   repository: vendorAgentRepository,
@@ -31,4 +29,4 @@ const vendorAgentService = createResourceService({
   },
 });
 
-module.exports = { vendorAgentService };
+export { vendorAgentService };

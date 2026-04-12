@@ -58,6 +58,4 @@ function toBillOfLadingDto(record) {
   };
 }
 
-module.exports = {
-  toBillOfLadingDto,
-};
+export { toBillOfLadingDto };

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const containerSizeOptions = ["20", "40", "45"];
 const containerTypeOptions = [
@@ -129,6 +129,4 @@ BillOfLadingSchema.index(
 
 const BillOfLadingModel = mongoose.model("BillOfLading", BillOfLadingSchema);
 
-module.exports = {
-  BillOfLadingModel,
-};
+export { BillOfLadingModel };

@@ -1,7 +1,5 @@
-const { lineOfBixRepository } = require("./line-of-bix.repository");
-const {
-  createResourceService,
-} = require("../../common/shared-crud/createResourceService");
+import { lineOfBixRepository } from "./line-of-bix.repository.js";
+import { createResourceService } from "../../common/shared-crud/createResourceService.js";
 
 const lineOfBixService = createResourceService({
   repository: lineOfBixRepository,
@@ -13,4 +11,4 @@ const lineOfBixService = createResourceService({
   }),
 });
 
-module.exports = { lineOfBixService };
+export { lineOfBixService };

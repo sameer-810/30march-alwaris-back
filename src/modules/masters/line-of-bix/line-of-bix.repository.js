@@ -1,13 +1,13 @@
-const { LineOfBixModel } = require("./line-of-bix.model");
-const { CounterModel } = require("../../common/shared-crud/counter.model");
-const {
+import { LineOfBixModel } from "./line-of-bix.model.js";
+import { CounterModel } from "../../common/shared-crud/counter.model.js";
+import {
   createCounterFieldHelpers,
   escapeRegex,
   findActiveById,
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../../common/shared-crud/resourceRepositoryHelpers");
+} from "../../common/shared-crud/resourceRepositoryHelpers.js";
 
 const counterHelpers = createCounterFieldHelpers({
   model: LineOfBixModel,
@@ -57,4 +57,4 @@ const lineOfBixRepository = {
   },
 };
 
-module.exports = { lineOfBixRepository };
+export { lineOfBixRepository };

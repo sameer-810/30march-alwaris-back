@@ -1,14 +1,14 @@
-const { TermsConditionModel } = require("./terms-condition.model");
-const { CounterModel } = require("../../common/shared-crud/counter.model");
-const { LineOfBixModel } = require("../line-of-bix/line-of-bix.model");
-const {
+import { TermsConditionModel } from "./terms-condition.model.js";
+import { CounterModel } from "../../common/shared-crud/counter.model.js";
+import { LineOfBixModel } from "../line-of-bix/line-of-bix.model.js";
+import {
   createCounterFieldHelpers,
   escapeRegex,
   findActiveById,
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../../common/shared-crud/resourceRepositoryHelpers");
+} from "../../common/shared-crud/resourceRepositoryHelpers.js";
 
 const counterHelpers = createCounterFieldHelpers({
   model: TermsConditionModel,
@@ -83,4 +83,4 @@ const termsConditionRepository = {
   },
 };
 
-module.exports = { termsConditionRepository };
+export { termsConditionRepository };

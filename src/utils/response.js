@@ -20,7 +20,4 @@ function sendNoContent(res) {
   return res.status(204).send();
 }
 
-module.exports = {
-  sendSuccess,
-  sendNoContent,
-};
+export { sendSuccess, sendNoContent };

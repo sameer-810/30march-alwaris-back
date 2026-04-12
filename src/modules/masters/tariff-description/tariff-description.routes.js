@@ -1,17 +1,15 @@
-const express = require("express");
-const { validateRequest } = require("../../../middlewares/validateRequest");
-const { authenticate } = require("../../../middlewares/auth");
-const { authorizeRoles } = require("../../../middlewares/role.middleware");
-const {
-  tariffDescriptionController,
-} = require("./tariff-description.controller");
-const {
+import express from "express";
+import { validateRequest } from "../../../middlewares/validateRequest.js";
+import { authenticate } from "../../../middlewares/auth.js";
+import { authorizeRoles } from "../../../middlewares/role.middleware.js";
+import { tariffDescriptionController } from "./tariff-description.controller.js";
+import {
   tariffDescriptionCreateSchema,
   tariffDescriptionUpdateSchema,
   tariffDescriptionGetSchema,
   tariffDescriptionDeleteSchema,
   tariffDescriptionListSchema,
-} = require("./tariff-description.validation");
+} from "./tariff-description.validation.js";
 
 const router = express.Router();
 
@@ -43,4 +41,4 @@ router.delete(
   tariffDescriptionController.remove,
 );
 
-module.exports = router;
+export default router;

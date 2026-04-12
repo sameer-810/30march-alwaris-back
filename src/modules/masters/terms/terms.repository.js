@@ -1,13 +1,13 @@
-const { TermsModel } = require("./terms.model");
-const { CounterModel } = require("../../common/shared-crud/counter.model");
-const {
+import { TermsModel } from "./terms.model.js";
+import { CounterModel } from "../../common/shared-crud/counter.model.js";
+import {
   createCounterFieldHelpers,
   escapeRegex,
   findActiveById,
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../../common/shared-crud/resourceRepositoryHelpers");
+} from "../../common/shared-crud/resourceRepositoryHelpers.js";
 
 const codeHelpers = createCounterFieldHelpers({
   model: TermsModel,
@@ -57,4 +57,4 @@ const termsRepository = {
   },
 };
 
-module.exports = { termsRepository };
+export { termsRepository };

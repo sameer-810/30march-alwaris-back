@@ -9,4 +9,4 @@ function toPortDto(doc) {
   };
 }
 
-module.exports = { toPortDto };
+export { toPortDto };

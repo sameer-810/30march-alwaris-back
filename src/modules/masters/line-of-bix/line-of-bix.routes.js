@@ -1,15 +1,15 @@
-const express = require("express");
-const { validateRequest } = require("../../../middlewares/validateRequest");
-const { authenticate } = require("../../../middlewares/auth");
-const { authorizeRoles } = require("../../../middlewares/role.middleware");
-const { lineOfBixController } = require("./line-of-bix.controller");
-const {
+import express from "express";
+import { validateRequest } from "../../../middlewares/validateRequest.js";
+import { authenticate } from "../../../middlewares/auth.js";
+import { authorizeRoles } from "../../../middlewares/role.middleware.js";
+import { lineOfBixController } from "./line-of-bix.controller.js";
+import {
   lineOfBixCreateSchema,
   lineOfBixUpdateSchema,
   lineOfBixGetSchema,
   lineOfBixDeleteSchema,
   lineOfBixListSchema,
-} = require("./line-of-bix.validation");
+} from "./line-of-bix.validation.js";
 
 const router = express.Router();
 
@@ -37,4 +37,4 @@ router.delete(
   lineOfBixController.remove,
 );
 
-module.exports = router;
+export default router;

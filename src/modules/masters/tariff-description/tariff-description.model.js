@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const TariffDescriptionSchema = new mongoose.Schema(
   {
@@ -23,4 +23,4 @@ const TariffDescriptionModel = mongoose.model(
   TariffDescriptionSchema,
 );
 
-module.exports = { TariffDescriptionModel };
+export { TariffDescriptionModel };

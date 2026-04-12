@@ -1,9 +1,5 @@
-const {
-  tariffDescriptionRepository,
-} = require("./tariff-description.repository");
-const {
-  createResourceService,
-} = require("../../common/shared-crud/createResourceService");
+import { tariffDescriptionRepository } from "./tariff-description.repository.js";
+import { createResourceService } from "../../common/shared-crud/createResourceService.js";
 
 const tariffDescriptionService = createResourceService({
   repository: tariffDescriptionRepository,
@@ -14,4 +10,4 @@ const tariffDescriptionService = createResourceService({
   }),
 });
 
-module.exports = { tariffDescriptionService };
+export { tariffDescriptionService };

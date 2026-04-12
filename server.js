@@ -1,8 +1,8 @@
-const http = require("http");
-const app = require("./src/app");
-const { env } = require("./src/config/env");
-const { connectDb } = require("./src/config/db");
-const { logger } = require("./src/config/logger");
+import http from "http";
+import app from "./src/app.js";
+import { env } from "./src/config/env.js";
+import { connectDb } from "./src/config/db.js";
+import { logger } from "./src/config/logger.js";
 
 async function bootstrap() {
   await connectDb();

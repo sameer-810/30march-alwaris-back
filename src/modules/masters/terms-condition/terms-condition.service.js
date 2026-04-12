@@ -1,8 +1,6 @@
-const { AppError } = require("../../../utils/AppError");
-const { termsConditionRepository } = require("./terms-condition.repository");
-const {
-  createResourceService,
-} = require("../../common/shared-crud/createResourceService");
+import { AppError } from "../../../utils/AppError.js";
+import { termsConditionRepository } from "./terms-condition.repository.js";
+import { createResourceService } from "../../common/shared-crud/createResourceService.js";
 
 const termsConditionService = createResourceService({
   repository: termsConditionRepository,
@@ -28,4 +26,4 @@ const termsConditionService = createResourceService({
   },
 });
 
-module.exports = { termsConditionService };
+export { termsConditionService };

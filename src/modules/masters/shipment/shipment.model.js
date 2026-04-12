@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const ShipmentSchema = new mongoose.Schema(
   {
@@ -20,4 +20,4 @@ ShipmentSchema.index({ shipmentType: "text" });
 
 const ShipmentModel = mongoose.model("Shipment", ShipmentSchema);
 
-module.exports = { ShipmentModel };
+export { ShipmentModel };

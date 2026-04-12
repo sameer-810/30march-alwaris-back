@@ -1,9 +1,9 @@
-const express = require("express");
-const { authenticate } = require("../../middlewares/auth");
-const { authorizeRoles } = require("../../middlewares/role.middleware");
-const { validateRequest } = require("../../middlewares/validateRequest");
-const { vendorDocumentsController } = require("./vendor-documents.controller");
-const {
+import express from "express";
+import { authenticate } from "../../middlewares/auth.js";
+import { authorizeRoles } from "../../middlewares/role.middleware.js";
+import { validateRequest } from "../../middlewares/validateRequest.js";
+import { vendorDocumentsController } from "./vendor-documents.controller.js";
+import {
   vendorDocumentsJobOptionsSchema,
   vendorDocumentsByJobSchema,
   vendorDocumentsMasterPresignSchema,
@@ -12,7 +12,7 @@ const {
   vendorDocumentsVendorRowPresignSchema,
   vendorDocumentsVendorRowCompleteSchema,
   vendorDocumentsVendorRowDownloadSchema,
-} = require("./vendor-documents.validation");
+} from "./vendor-documents.validation.js";
 
 const router = express.Router();
 
@@ -66,4 +66,4 @@ router.get(
   vendorDocumentsController.vendorRowDownload,
 );
 
-module.exports = router;
+export default router;

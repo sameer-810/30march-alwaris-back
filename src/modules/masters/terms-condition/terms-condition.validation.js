@@ -1,9 +1,9 @@
-const { z } = require("zod");
-const { objectIdSchema } = require("../../../utils/validationPrimitives");
-const {
+import { z } from "zod";
+import { objectIdSchema } from "../../../utils/validationPrimitives.js";
+import {
   buildResourceListQuerySchema,
   createResourceCrudSchemas,
-} = require("../../common/shared-crud/resourceValidationHelpers");
+} from "../../common/shared-crud/resourceValidationHelpers.js";
 
 const termsConditionBodyCreateSchema = z.object({
   lineOfBixId: objectIdSchema,
@@ -31,7 +31,7 @@ const {
   listQuerySchema: termsConditionListQuerySchema,
 });
 
-module.exports = {
+export {
   termsConditionCreateSchema,
   termsConditionUpdateSchema,
   termsConditionGetSchema,

@@ -1,12 +1,12 @@
-const { z } = require("zod");
-const {
+import { z } from "zod";
+import {
   booleanQuerySchema,
   emailSchema,
-} = require("../../../utils/validationPrimitives");
-const {
+} from "../../../utils/validationPrimitives.js";
+import {
   buildResourceListQuerySchema,
   createResourceCrudSchemas,
-} = require("../../common/shared-crud/resourceValidationHelpers");
+} from "../../common/shared-crud/resourceValidationHelpers.js";
 
 const departments = ["HOD", "Marketing", "Accounts", "Other"];
 
@@ -59,7 +59,7 @@ const {
   listQuerySchema: employeeListQuerySchema,
 });
 
-module.exports = {
+export {
   employeeCreateSchema,
   employeeUpdateSchema,
   employeeGetSchema,

@@ -1,12 +1,10 @@
-const { vesselService } = require("./vessel.service");
-const { toVesselDto } = require("./vessel.dto");
-const {
-  createResourceController,
-} = require("../../common/shared-crud/createResourceController");
+import { vesselService } from "./vessel.service.js";
+import { toVesselDto } from "./vessel.dto.js";
+import { createResourceController } from "../../common/shared-crud/createResourceController.js";
 
 const vesselController = createResourceController({
   service: vesselService,
   toDto: toVesselDto,
 });
 
-module.exports = { vesselController };
+export { vesselController };

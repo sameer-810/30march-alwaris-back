@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const CustomerTypeSchema = new mongoose.Schema(
   {
@@ -20,4 +20,4 @@ CustomerTypeSchema.index({ customerType: "text" });
 
 const CustomerTypeModel = mongoose.model("CustomerType", CustomerTypeSchema);
 
-module.exports = { CustomerTypeModel };
+export { CustomerTypeModel };

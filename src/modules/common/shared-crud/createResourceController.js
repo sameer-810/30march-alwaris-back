@@ -1,5 +1,5 @@
-const { sendNoContent, sendSuccess } = require("../../../utils/response");
-const { asyncHandler } = require("../../../utils/asyncHandler");
+import { sendNoContent, sendSuccess } from "../../../utils/response.js";
+import { asyncHandler } from "../../../utils/asyncHandler.js";
 
 function createResourceController({ service, toDto }) {
   return {
@@ -36,4 +36,4 @@ function createResourceController({ service, toDto }) {
   };
 }
 
-module.exports = { createResourceController };
+export { createResourceController };

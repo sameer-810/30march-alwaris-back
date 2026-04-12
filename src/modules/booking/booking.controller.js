@@ -1,10 +1,8 @@
-const { bookingService } = require("./booking.service");
-const { toBookingDto } = require("./booking.dto");
-const {
-  createResourceController,
-} = require("../common/shared-crud/createResourceController");
-const { sendSuccess } = require("../../utils/response");
-const { asyncHandler } = require("../../utils/asyncHandler");
+import { bookingService } from "./booking.service.js";
+import { toBookingDto } from "./booking.dto.js";
+import { createResourceController } from "../common/shared-crud/createResourceController.js";
+import { sendSuccess } from "../../utils/response.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
 
 const bookingCrudController = createResourceController({
   service: bookingService,
@@ -19,4 +17,4 @@ const bookingController = {
   }),
 };
 
-module.exports = { bookingController };
+export { bookingController };

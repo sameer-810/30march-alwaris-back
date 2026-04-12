@@ -1,13 +1,13 @@
-const { VesselModel } = require("./vessel.model");
-const { CounterModel } = require("../../common/shared-crud/counter.model");
-const {
+import { VesselModel } from "./vessel.model.js";
+import { CounterModel } from "../../common/shared-crud/counter.model.js";
+import {
   createCounterFieldHelpers,
   escapeRegex,
   findActiveById,
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../../common/shared-crud/resourceRepositoryHelpers");
+} from "../../common/shared-crud/resourceRepositoryHelpers.js";
 
 const codeHelpers = createCounterFieldHelpers({
   model: VesselModel,
@@ -58,4 +58,4 @@ const vesselRepository = {
   },
 };
 
-module.exports = { vesselRepository };
+export { vesselRepository };

@@ -8,4 +8,4 @@ function toVendorTypeDto(doc) {
   };
 }
 
-module.exports = { toVendorTypeDto };
+export { toVendorTypeDto };

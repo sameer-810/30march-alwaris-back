@@ -1,7 +1,5 @@
-const { serviceRepository } = require("./service.repository");
-const {
-  createResourceService,
-} = require("../../common/shared-crud/createResourceService");
+import { serviceRepository } from "./service.repository.js";
+import { createResourceService } from "../../common/shared-crud/createResourceService.js";
 
 const serviceService = createResourceService({
   repository: serviceRepository,
@@ -12,4 +10,4 @@ const serviceService = createResourceService({
   }),
 });
 
-module.exports = { serviceService };
+export { serviceService };

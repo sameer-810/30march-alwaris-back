@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -31,4 +31,4 @@ UserSchema.index(
 
 const UserModel = mongoose.model("User", UserSchema);
 
-module.exports = { UserModel };
+export { UserModel };

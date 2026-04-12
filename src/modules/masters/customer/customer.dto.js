@@ -30,4 +30,4 @@ function toCustomerDto(doc) {
   };
 }
 
-module.exports = { toCustomerDto };
+export { toCustomerDto };

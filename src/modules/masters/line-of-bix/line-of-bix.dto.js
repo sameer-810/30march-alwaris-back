@@ -9,4 +9,4 @@ function toLineOfBixDto(doc) {
   };
 }
 
-module.exports = { toLineOfBixDto };
+export { toLineOfBixDto };

@@ -1,45 +1,21 @@
-const mongoose = require("mongoose");
-const { env } = require("../src/config/env");
+import mongoose from "mongoose";
+import { env } from "../src/config/env.js";
 
-const {
-  customerTypeService,
-} = require("../src/modules/masters/customer-type/customer-type.service");
-const {
-  customerService,
-} = require("../src/modules/masters/customer/customer.service");
-const {
-  employeeService,
-} = require("../src/modules/masters/employee/employee.service");
-const {
-  lineOfBixService,
-} = require("../src/modules/masters/line-of-bix/line-of-bix.service");
-const { portService } = require("../src/modules/masters/port/port.service");
-const {
-  serviceService,
-} = require("../src/modules/masters/service/service.service");
-const {
-  shipmentService,
-} = require("../src/modules/masters/shipment/shipment.service");
-const {
-  tariffDescriptionService,
-} = require("../src/modules/masters/tariff-description/tariff-description.service");
-const { termsService } = require("../src/modules/masters/terms/terms.service");
-const {
-  termsConditionService,
-} = require("../src/modules/masters/terms-condition/terms-condition.service");
-const {
-  vesselService,
-} = require("../src/modules/masters/vessel/vessel.service");
-const {
-  vendorAgentService,
-} = require("../src/modules/masters/vendor-agent/vendor-agent.service");
-const {
-  vendorTypeService,
-} = require("../src/modules/masters/vendor-type/vendor-type.service");
-const { bookingService } = require("../src/modules/booking/booking.service");
-const {
-  billOfLadingService,
-} = require("../src/modules/bill-of-lading/bill-of-lading.service");
+import { customerTypeService } from "../src/modules/masters/customer-type/customer-type.service.js";
+import { customerService } from "../src/modules/masters/customer/customer.service.js";
+import { employeeService } from "../src/modules/masters/employee/employee.service.js";
+import { lineOfBixService } from "../src/modules/masters/line-of-bix/line-of-bix.service.js";
+import { portService } from "../src/modules/masters/port/port.service.js";
+import { serviceService } from "../src/modules/masters/service/service.service.js";
+import { shipmentService } from "../src/modules/masters/shipment/shipment.service.js";
+import { tariffDescriptionService } from "../src/modules/masters/tariff-description/tariff-description.service.js";
+import { termsService } from "../src/modules/masters/terms/terms.service.js";
+import { termsConditionService } from "../src/modules/masters/terms-condition/terms-condition.service.js";
+import { vesselService } from "../src/modules/masters/vessel/vessel.service.js";
+import { vendorAgentService } from "../src/modules/masters/vendor-agent/vendor-agent.service.js";
+import { vendorTypeService } from "../src/modules/masters/vendor-type/vendor-type.service.js";
+import { bookingService } from "../src/modules/booking/booking.service.js";
+import { billOfLadingService } from "../src/modules/bill-of-lading/bill-of-lading.service.js";
 
 const DEPARTMENTS = ["HOD", "Marketing", "Accounts", "Other"];
 const CITIES = ["Mumbai", "Delhi", "Bangalore", "Chennai", "Kolkata", "Pune"];

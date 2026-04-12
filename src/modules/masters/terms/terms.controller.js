@@ -1,12 +1,10 @@
-const { termsService } = require("./terms.service");
-const { toTermsDto } = require("./terms.dto");
-const {
-  createResourceController,
-} = require("../../common/shared-crud/createResourceController");
+import { termsService } from "./terms.service.js";
+import { toTermsDto } from "./terms.dto.js";
+import { createResourceController } from "../../common/shared-crud/createResourceController.js";
 
 const termsController = createResourceController({
   service: termsService,
   toDto: toTermsDto,
 });
 
-module.exports = { termsController };
+export { termsController };

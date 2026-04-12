@@ -1,8 +1,8 @@
-const { z } = require("zod");
-const {
+import { z } from "zod";
+import {
   buildResourceListQuerySchema,
   createResourceCrudSchemas,
-} = require("../../common/shared-crud/resourceValidationHelpers");
+} from "../../common/shared-crud/resourceValidationHelpers.js";
 
 const termsBodyCreateSchema = z.object({
   terms: z.string().trim().min(1, "Terms is required"),
@@ -30,7 +30,7 @@ const {
   listQuerySchema: termsListQuerySchema,
 });
 
-module.exports = {
+export {
   termsCreateSchema,
   termsUpdateSchema,
   termsGetSchema,

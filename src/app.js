@@ -1,33 +1,33 @@
-const express = require("express");
-const cors = require("cors");
-const helmet = require("helmet");
-const pinoHttp = require("pino-http");
-const { logger } = require("./config/logger");
-const rateLimit = require("express-rate-limit");
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import pinoHttp from "pino-http";
+import { logger } from "./config/logger.js";
+import rateLimit from "express-rate-limit";
 
-const { env } = require("./config/env");
-const { sendSuccess } = require("./utils/response");
-const { notFoundHandler } = require("./middlewares/notFoundHandler");
-const { errorHandler } = require("./middlewares/errorHandler");
+import { env } from "./config/env.js";
+import { sendSuccess } from "./utils/response.js";
+import { notFoundHandler } from "./middlewares/notFoundHandler.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
 
-const employeeRoutes = require("./modules/masters/employee/employee.routes");
-const authRoutes = require("./modules/auth/auth.routes");
-const userRoutes = require("./modules/user/user.routes");
-const customerTypeRoutes = require("./modules/masters/customer-type/customer-type.routes");
-const customerRoutes = require("./modules/masters/customer/customer.routes");
-const vesselRoutes = require("./modules/masters/vessel/vessel.routes");
-const portRoutes = require("./modules/masters/port/port.routes");
-const termsRoutes = require("./modules/masters/terms/terms.routes");
-const serviceRoutes = require("./modules/masters/service/service.routes");
-const shipmentRoutes = require("./modules/masters/shipment/shipment.routes");
-const lineOfBixRoutes = require("./modules/masters/line-of-bix/line-of-bix.routes");
-const termsConditionRoutes = require("./modules/masters/terms-condition/terms-condition.routes");
-const tariffDescriptionRoutes = require("./modules/masters/tariff-description/tariff-description.routes");
-const vendorAgentRoutes = require("./modules/masters/vendor-agent/vendor-agent.routes");
-const vendorTypeRoutes = require("./modules/masters/vendor-type/vendor-type.routes");
-const bookingRoutes = require("./modules/booking/booking.routes");
-const billOfLadingRoutes = require("./modules/bill-of-lading/bill-of-lading.routes");
-const vendorDocumentsRoutes = require("./modules/vendor-documents/vendor-documents.routes");
+import employeeRoutes from "./modules/masters/employee/employee.routes.js";
+import authRoutes from "./modules/auth/auth.routes.js";
+import userRoutes from "./modules/user/user.routes.js";
+import customerTypeRoutes from "./modules/masters/customer-type/customer-type.routes.js";
+import customerRoutes from "./modules/masters/customer/customer.routes.js";
+import vesselRoutes from "./modules/masters/vessel/vessel.routes.js";
+import portRoutes from "./modules/masters/port/port.routes.js";
+import termsRoutes from "./modules/masters/terms/terms.routes.js";
+import serviceRoutes from "./modules/masters/service/service.routes.js";
+import shipmentRoutes from "./modules/masters/shipment/shipment.routes.js";
+import lineOfBixRoutes from "./modules/masters/line-of-bix/line-of-bix.routes.js";
+import termsConditionRoutes from "./modules/masters/terms-condition/terms-condition.routes.js";
+import tariffDescriptionRoutes from "./modules/masters/tariff-description/tariff-description.routes.js";
+import vendorAgentRoutes from "./modules/masters/vendor-agent/vendor-agent.routes.js";
+import vendorTypeRoutes from "./modules/masters/vendor-type/vendor-type.routes.js";
+import bookingRoutes from "./modules/booking/booking.routes.js";
+import billOfLadingRoutes from "./modules/bill-of-lading/bill-of-lading.routes.js";
+import vendorDocumentsRoutes from "./modules/vendor-documents/vendor-documents.routes.js";
 
 const app = express();
 
@@ -87,4 +87,4 @@ app.use("/api/v1/vendor-documents", vendorDocumentsRoutes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-module.exports = app;
+export default app;

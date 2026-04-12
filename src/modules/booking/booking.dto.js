@@ -147,4 +147,4 @@ function toBookingDto(booking) {
   };
 }
 
-module.exports = { toBookingDto };
+export { toBookingDto };

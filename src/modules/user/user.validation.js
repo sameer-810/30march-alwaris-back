@@ -1,5 +1,5 @@
-const { z } = require("zod");
-const {
+import { z } from "zod";
+import {
   objectIdSchema,
   searchSchema,
   pageSchema,
@@ -7,7 +7,7 @@ const {
   booleanQuerySchema,
   emptyObjectPassthroughSchema,
   emailSchema,
-} = require("../../utils/validationPrimitives");
+} from "../../utils/validationPrimitives.js";
 
 const userEmailSchema = emailSchema().refine(
   (v) => v.includes("@") && v.split("@")[1]?.includes("."),
@@ -67,7 +67,7 @@ const userListSchema = z.object({
   }),
 });
 
-module.exports = {
+export {
   userCreateSchema,
   userUpdateSchema,
   userPasswordResetSchema,

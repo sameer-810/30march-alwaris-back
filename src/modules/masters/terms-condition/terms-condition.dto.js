@@ -13,4 +13,4 @@ function toTermsConditionDto(doc) {
   };
 }
 
-module.exports = { toTermsConditionDto };
+export { toTermsConditionDto };

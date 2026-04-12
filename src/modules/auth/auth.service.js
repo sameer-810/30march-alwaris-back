@@ -1,8 +1,8 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { env } = require("../../config/env");
-const { AppError } = require("../../utils/AppError");
-const { userRepository } = require("../user/user.repository");
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { env } from "../../config/env.js";
+import { AppError } from "../../utils/AppError.js";
+import { userRepository } from "../user/user.repository.js";
 
 const authService = {
   async login({ email, password }) {
@@ -32,4 +32,4 @@ const authService = {
   },
 };
 
-module.exports = { authService };
+export { authService };

@@ -1,13 +1,13 @@
-const { z } = require("zod");
+import { z } from "zod";
 
-const {
+import {
   objectIdSchema,
   emailSchema,
-} = require("../../../utils/validationPrimitives");
-const {
+} from "../../../utils/validationPrimitives.js";
+import {
   buildResourceListQuerySchema,
   createResourceCrudSchemas,
-} = require("../../common/shared-crud/resourceValidationHelpers");
+} from "../../common/shared-crud/resourceValidationHelpers.js";
 
 const emailListSchema = z.array(emailSchema("Invalid Email ID")).max(20);
 
@@ -68,7 +68,7 @@ const {
   listQuerySchema: customerListQuerySchema,
 });
 
-module.exports = {
+export {
   customerCreateSchema,
   customerUpdateSchema,
   customerGetSchema,

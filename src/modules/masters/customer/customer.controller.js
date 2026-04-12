@@ -1,12 +1,10 @@
-const { customerService } = require("./customer.service");
-const { toCustomerDto } = require("./customer.dto");
-const {
-  createResourceController,
-} = require("../../common/shared-crud/createResourceController");
+import { customerService } from "./customer.service.js";
+import { toCustomerDto } from "./customer.dto.js";
+import { createResourceController } from "../../common/shared-crud/createResourceController.js";
 
 const customerController = createResourceController({
   service: customerService,
   toDto: toCustomerDto,
 });
 
-module.exports = { customerController };
+export { customerController };

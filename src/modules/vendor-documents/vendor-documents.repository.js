@@ -1,5 +1,5 @@
-const { BookingModel } = require("../booking/booking.model");
-const { VendorDocumentsModel } = require("./vendor-documents.model");
+import { BookingModel } from "../booking/booking.model.js";
+import { VendorDocumentsModel } from "./vendor-documents.model.js";
 
 const bookingPopulate = [
   { path: "expenseDetails.vendorName", select: "vendorName customerName" },
@@ -111,4 +111,4 @@ const vendorDocumentsRepository = {
   },
 };
 
-module.exports = { vendorDocumentsRepository };
+export { vendorDocumentsRepository };

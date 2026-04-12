@@ -8,4 +8,4 @@ function toVesselDto(doc) {
   };
 }
 
-module.exports = { toVesselDto };
+export { toVesselDto };

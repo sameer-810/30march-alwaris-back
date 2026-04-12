@@ -1,8 +1,8 @@
-const { z } = require("zod");
-const {
+import { z } from "zod";
+import {
   buildResourceListQuerySchema,
   createResourceCrudSchemas,
-} = require("../../common/shared-crud/resourceValidationHelpers");
+} from "../../common/shared-crud/resourceValidationHelpers.js";
 
 const vendorTypeBodyCreateSchema = z.object({
   vendorType: z.string().trim().min(1, "Vendor Type is required"),
@@ -28,7 +28,7 @@ const {
   listQuerySchema: vendorTypeListQuerySchema,
 });
 
-module.exports = {
+export {
   vendorTypeCreateSchema,
   vendorTypeUpdateSchema,
   vendorTypeGetSchema,

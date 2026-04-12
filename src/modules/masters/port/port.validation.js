@@ -1,8 +1,8 @@
-const { z } = require("zod");
-const {
+import { z } from "zod";
+import {
   buildResourceListQuerySchema,
   createResourceCrudSchemas,
-} = require("../../common/shared-crud/resourceValidationHelpers");
+} from "../../common/shared-crud/resourceValidationHelpers.js";
 
 const portBodyCreateSchema = z.object({
   portCode: z.string().trim().min(1, "Port Code is required"),
@@ -30,7 +30,7 @@ const {
   listQuerySchema: portListQuerySchema,
 });
 
-module.exports = {
+export {
   portCreateSchema,
   portUpdateSchema,
   portGetSchema,

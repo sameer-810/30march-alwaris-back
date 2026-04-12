@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const VendorAgentSchema = new mongoose.Schema(
   {
@@ -46,4 +46,4 @@ VendorAgentSchema.index({
 
 const VendorAgentModel = mongoose.model("VendorAgent", VendorAgentSchema);
 
-module.exports = { VendorAgentModel };
+export { VendorAgentModel };

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const VesselSchema = new mongoose.Schema(
   {
@@ -20,4 +20,4 @@ VesselSchema.index({ vesselName: "text" });
 
 const VesselModel = mongoose.model("Vessel", VesselSchema);
 
-module.exports = { VesselModel };
+export { VesselModel };

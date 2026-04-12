@@ -1,5 +1,5 @@
-const pino = require("pino");
-const { env } = require("./env");
+import pino from "pino";
+import { env } from "./env.js";
 
 const logger = pino({
   level: env.NODE_ENV === "production" ? "info" : "debug",
@@ -15,4 +15,4 @@ const logger = pino({
   timestamp: pino.stdTimeFunctions.isoTime,
 });
 
-module.exports = { logger };
+export { logger };

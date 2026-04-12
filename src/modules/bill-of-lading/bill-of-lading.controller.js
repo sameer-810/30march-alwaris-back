@@ -1,10 +1,8 @@
-const {
-  createResourceController,
-} = require("../common/shared-crud/createResourceController");
-const { sendSuccess } = require("../../utils/response");
-const { asyncHandler } = require("../../utils/asyncHandler");
-const { billOfLadingService } = require("./bill-of-lading.service");
-const { toBillOfLadingDto } = require("./bill-of-lading.dto");
+import { createResourceController } from "../common/shared-crud/createResourceController.js";
+import { sendSuccess } from "../../utils/response.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { billOfLadingService } from "./bill-of-lading.service.js";
+import { toBillOfLadingDto } from "./bill-of-lading.dto.js";
 
 const billOfLadingCrudController = createResourceController({
   service: billOfLadingService,
@@ -25,6 +23,4 @@ const billOfLadingController = {
   }),
 };
 
-module.exports = {
-  billOfLadingController,
-};
+export { billOfLadingController };

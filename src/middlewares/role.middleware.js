@@ -1,4 +1,4 @@
-const { AppError } = require("../utils/AppError");
+import { AppError } from "../utils/AppError.js";
 
 function authorizeRoles(...roles) {
   return (req, _res, next) => {
@@ -9,4 +9,4 @@ function authorizeRoles(...roles) {
   };
 }
 
-module.exports = { authorizeRoles };
+export { authorizeRoles };

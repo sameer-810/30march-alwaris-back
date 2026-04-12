@@ -1,6 +1,6 @@
-const bcrypt = require("bcryptjs");
-const { AppError } = require("../../utils/AppError");
-const { userRepository } = require("./user.repository");
+import bcrypt from "bcryptjs";
+import { AppError } from "../../utils/AppError.js";
+import { userRepository } from "./user.repository.js";
 
 const userService = {
   async createUser({ name, email, role, password, isActive }) {
@@ -42,4 +42,4 @@ const userService = {
   },
 };
 
-module.exports = { userService };
+export { userService };

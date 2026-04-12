@@ -1,13 +1,13 @@
-const {
+import {
   PutObjectCommand,
   GetObjectCommand,
   DeleteObjectCommand,
-} = require("@aws-sdk/client-s3");
-const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
-const { AppError } = require("../../utils/AppError");
-const { env } = require("../../config/env");
-const { s3Client } = require("./vendor-documents.s3");
-const { vendorDocumentsRepository } = require("./vendor-documents.repository");
+} from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { AppError } from "../../utils/AppError.js";
+import { env } from "../../config/env.js";
+import { s3Client } from "./vendor-documents.s3.js";
+import { vendorDocumentsRepository } from "./vendor-documents.repository.js";
 
 const MAX_UPLOAD_SIZE = 10 * 1024 * 1024;
 const PRESIGNED_UPLOAD_EXPIRES_IN = 60 * 5;
@@ -323,4 +323,4 @@ const vendorDocumentsService = {
   },
 };
 
-module.exports = { vendorDocumentsService };
+export { vendorDocumentsService };

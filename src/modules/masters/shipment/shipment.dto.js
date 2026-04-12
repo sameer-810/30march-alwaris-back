@@ -8,4 +8,4 @@ function toShipmentDto(doc) {
   };
 }
 
-module.exports = { toShipmentDto };
+export { toShipmentDto };

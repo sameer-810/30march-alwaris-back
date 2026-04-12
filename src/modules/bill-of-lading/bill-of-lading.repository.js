@@ -1,14 +1,14 @@
-const { BillOfLadingModel } = require("./bill-of-lading.model");
-const { BookingModel } = require("../booking/booking.model");
-const { CounterModel } = require("../common/shared-crud/counter.model");
-const {
+import { BillOfLadingModel } from "./bill-of-lading.model.js";
+import { BookingModel } from "../booking/booking.model.js";
+import { CounterModel } from "../common/shared-crud/counter.model.js";
+import {
   createCounterFieldHelpers,
   escapeRegex,
   findActiveById,
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../common/shared-crud/resourceRepositoryHelpers");
+} from "../common/shared-crud/resourceRepositoryHelpers.js";
 
 const counterHelpers = createCounterFieldHelpers({
   model: BillOfLadingModel,
@@ -190,6 +190,4 @@ const billOfLadingRepository = {
   },
 };
 
-module.exports = {
-  billOfLadingRepository,
-};
+export { billOfLadingRepository };

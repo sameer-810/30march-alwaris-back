@@ -15,4 +15,4 @@ function notFoundHandler(req, res, _next) {
   });
 }
 
-module.exports = { notFoundHandler };
+export { notFoundHandler };

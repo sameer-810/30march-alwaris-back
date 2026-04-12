@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const LineOfBixSchema = new mongoose.Schema(
   {
@@ -27,4 +27,4 @@ LineOfBixSchema.index({ code: "text", lineOfBix: "text" });
 
 const LineOfBixModel = mongoose.model("LineOfBix", LineOfBixSchema);
 
-module.exports = { LineOfBixModel };
+export { LineOfBixModel };

@@ -1,12 +1,10 @@
-const { termsConditionService } = require("./terms-condition.service");
-const { toTermsConditionDto } = require("./terms-condition.dto");
-const {
-  createResourceController,
-} = require("../../common/shared-crud/createResourceController");
+import { termsConditionService } from "./terms-condition.service.js";
+import { toTermsConditionDto } from "./terms-condition.dto.js";
+import { createResourceController } from "../../common/shared-crud/createResourceController.js";
 
 const termsConditionController = createResourceController({
   service: termsConditionService,
   toDto: toTermsConditionDto,
 });
 
-module.exports = { termsConditionController };
+export { termsConditionController };

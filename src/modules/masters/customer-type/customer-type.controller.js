@@ -1,12 +1,10 @@
-const { customerTypeService } = require("./customer-type.service");
-const { toCustomerTypeDto } = require("./customer-type.dto");
-const {
-  createResourceController,
-} = require("../../common/shared-crud/createResourceController");
+import { customerTypeService } from "./customer-type.service.js";
+import { toCustomerTypeDto } from "./customer-type.dto.js";
+import { createResourceController } from "../../common/shared-crud/createResourceController.js";
 
 const customerTypeController = createResourceController({
   service: customerTypeService,
   toDto: toCustomerTypeDto,
 });
 
-module.exports = { customerTypeController };
+export { customerTypeController };

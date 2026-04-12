@@ -1,8 +1,8 @@
-const { z } = require("zod");
-const {
+import { z } from "zod";
+import {
   buildResourceListQuerySchema,
   createResourceCrudSchemas,
-} = require("../../common/shared-crud/resourceValidationHelpers");
+} from "../../common/shared-crud/resourceValidationHelpers.js";
 
 const serviceBodyCreateSchema = z.object({
   serviceType: z.string().trim().min(1, "Service Type is required"),
@@ -28,7 +28,7 @@ const {
   listQuerySchema: serviceListQuerySchema,
 });
 
-module.exports = {
+export {
   serviceCreateSchema,
   serviceUpdateSchema,
   serviceGetSchema,

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const PortSchema = new mongoose.Schema(
   {
@@ -27,4 +27,4 @@ PortSchema.index({ portCode: "text", portName: "text" });
 
 const PortModel = mongoose.model("Port", PortSchema);
 
-module.exports = { PortModel };
+export { PortModel };

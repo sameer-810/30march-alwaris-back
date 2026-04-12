@@ -1,8 +1,8 @@
-const jwt = require("jsonwebtoken");
-const { env } = require("../config/env");
-const { AppError } = require("../utils/AppError");
-const { logger } = require("../config/logger");
-const { userRepository } = require("../modules/user/user.repository");
+import jwt from "jsonwebtoken";
+import { env } from "../config/env.js";
+import { AppError } from "../utils/AppError.js";
+import { logger } from "../config/logger.js";
+import { userRepository } from "../modules/user/user.repository.js";
 
 async function authenticate(req, _res, next) {
   try {
@@ -31,4 +31,4 @@ async function authenticate(req, _res, next) {
   }
 }
 
-module.exports = { authenticate };
+export { authenticate };

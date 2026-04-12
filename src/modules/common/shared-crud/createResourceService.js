@@ -1,4 +1,4 @@
-const { AppError } = require("../../../utils/AppError");
+import { AppError } from "../../../utils/AppError.js";
 
 function createResourceService({
   repository,
@@ -50,4 +50,4 @@ function createResourceService({
   };
 }
 
-module.exports = { createResourceService };
+export { createResourceService };

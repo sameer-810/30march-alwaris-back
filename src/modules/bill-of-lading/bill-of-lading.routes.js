@@ -1,9 +1,9 @@
-const express = require("express");
-const { authenticate } = require("../../middlewares/auth");
-const { authorizeRoles } = require("../../middlewares/role.middleware");
-const { validateRequest } = require("../../middlewares/validateRequest");
-const { billOfLadingController } = require("./bill-of-lading.controller");
-const {
+import express from "express";
+import { authenticate } from "../../middlewares/auth.js";
+import { authorizeRoles } from "../../middlewares/role.middleware.js";
+import { validateRequest } from "../../middlewares/validateRequest.js";
+import { billOfLadingController } from "./bill-of-lading.controller.js";
+import {
   billOfLadingCreateSchema,
   billOfLadingUpdateSchema,
   billOfLadingGetSchema,
@@ -11,7 +11,7 @@ const {
   billOfLadingListSchema,
   billOfLadingNextNumberSchema,
   billOfLadingJobOptionsSchema,
-} = require("./bill-of-lading.validation");
+} from "./bill-of-lading.validation.js";
 
 const router = express.Router();
 
@@ -53,4 +53,4 @@ router.delete(
   billOfLadingController.remove,
 );
 
-module.exports = router;
+export default router;

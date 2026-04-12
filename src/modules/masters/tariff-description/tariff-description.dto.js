@@ -8,4 +8,4 @@ function toTariffDescriptionDto(doc) {
   };
 }
 
-module.exports = { toTariffDescriptionDto };
+export { toTariffDescriptionDto };

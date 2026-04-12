@@ -1,6 +1,6 @@
-const { sendSuccess } = require("../../utils/response");
-const { asyncHandler } = require("../../utils/asyncHandler");
-const { vendorDocumentsService } = require("./vendor-documents.service");
+import { sendSuccess } from "../../utils/response.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { vendorDocumentsService } from "./vendor-documents.service.js";
 
 const vendorDocumentsController = {
   jobOptions: asyncHandler(async (_req, res) => {
@@ -72,4 +72,4 @@ const vendorDocumentsController = {
   }),
 };
 
-module.exports = { vendorDocumentsController };
+export { vendorDocumentsController };

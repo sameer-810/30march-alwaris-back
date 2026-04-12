@@ -1,7 +1,7 @@
-const bcrypt = require("bcryptjs");
-const mongoose = require("mongoose");
-const { env } = require("../src/config/env");
-const { UserModel } = require("../src/modules/user/user.model");
+import bcrypt from "bcryptjs";
+import mongoose from "mongoose";
+import { env } from "../src/config/env.js";
+import { UserModel } from "../src/modules/user/user.model.js";
 
 async function run() {
   const email = (

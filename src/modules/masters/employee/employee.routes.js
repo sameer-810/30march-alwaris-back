@@ -1,15 +1,15 @@
-const express = require("express");
-const { validateRequest } = require("../../../middlewares/validateRequest");
-const { authenticate } = require("../../../middlewares/auth");
-const { authorizeRoles } = require("../../../middlewares/role.middleware");
-const { employeeController } = require("./employee.controller");
-const {
+import express from "express";
+import { validateRequest } from "../../../middlewares/validateRequest.js";
+import { authenticate } from "../../../middlewares/auth.js";
+import { authorizeRoles } from "../../../middlewares/role.middleware.js";
+import { employeeController } from "./employee.controller.js";
+import {
   employeeCreateSchema,
   employeeUpdateSchema,
   employeeGetSchema,
   employeeDeleteSchema,
   employeeListSchema,
-} = require("./employee.validation");
+} from "./employee.validation.js";
 
 const router = express.Router();
 
@@ -33,4 +33,4 @@ router.delete(
   employeeController.remove,
 );
 
-module.exports = router;
+export default router;

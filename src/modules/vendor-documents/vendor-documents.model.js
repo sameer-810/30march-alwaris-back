@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const UploadedFileSchema = new mongoose.Schema(
   {
@@ -61,4 +61,4 @@ const VendorDocumentsModel = mongoose.model(
   VendorDocumentsSchema,
 );
 
-module.exports = { VendorDocumentsModel };
+export { VendorDocumentsModel };

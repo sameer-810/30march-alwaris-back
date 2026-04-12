@@ -1,13 +1,13 @@
-const { TariffDescriptionModel } = require("./tariff-description.model");
-const { CounterModel } = require("../../common/shared-crud/counter.model");
-const {
+import { TariffDescriptionModel } from "./tariff-description.model.js";
+import { CounterModel } from "../../common/shared-crud/counter.model.js";
+import {
   createCounterFieldHelpers,
   escapeRegex,
   findActiveById,
   runPagedQuery,
   softDeleteActiveById,
   updateActiveById,
-} = require("../../common/shared-crud/resourceRepositoryHelpers");
+} from "../../common/shared-crud/resourceRepositoryHelpers.js";
 
 const counterHelpers = createCounterFieldHelpers({
   model: TariffDescriptionModel,
@@ -54,4 +54,4 @@ const tariffDescriptionRepository = {
   },
 };
 
-module.exports = { tariffDescriptionRepository };
+export { tariffDescriptionRepository };

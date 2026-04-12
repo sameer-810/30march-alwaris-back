@@ -10,4 +10,4 @@ function toUserDto(doc) {
   };
 }
 
-module.exports = { toUserDto };
+export { toUserDto };

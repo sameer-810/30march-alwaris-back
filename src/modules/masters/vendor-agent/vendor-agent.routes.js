@@ -1,15 +1,15 @@
-const express = require("express");
-const { validateRequest } = require("../../../middlewares/validateRequest");
-const { authenticate } = require("../../../middlewares/auth");
-const { authorizeRoles } = require("../../../middlewares/role.middleware");
-const { vendorAgentController } = require("./vendor-agent.controller");
-const {
+import express from "express";
+import { validateRequest } from "../../../middlewares/validateRequest.js";
+import { authenticate } from "../../../middlewares/auth.js";
+import { authorizeRoles } from "../../../middlewares/role.middleware.js";
+import { vendorAgentController } from "./vendor-agent.controller.js";
+import {
   vendorAgentCreateSchema,
   vendorAgentUpdateSchema,
   vendorAgentGetSchema,
   vendorAgentDeleteSchema,
   vendorAgentListSchema,
-} = require("./vendor-agent.validation");
+} from "./vendor-agent.validation.js";
 
 const router = express.Router();
 
@@ -41,4 +41,4 @@ router.delete(
   vendorAgentController.remove,
 );
 
-module.exports = router;
+export default router;

@@ -1,16 +1,16 @@
-const express = require("express");
-const { validateRequest } = require("../../middlewares/validateRequest");
-const { authenticate } = require("../../middlewares/auth");
-const { authorizeRoles } = require("../../middlewares/role.middleware");
-const { bookingController } = require("./booking.controller");
-const {
+import express from "express";
+import { validateRequest } from "../../middlewares/validateRequest.js";
+import { authenticate } from "../../middlewares/auth.js";
+import { authorizeRoles } from "../../middlewares/role.middleware.js";
+import { bookingController } from "./booking.controller.js";
+import {
   bookingCreateSchema,
   bookingUpdateSchema,
   bookingGetSchema,
   bookingDeleteSchema,
   bookingListSchema,
   bookingNextReferenceSchema,
-} = require("./booking.validation");
+} from "./booking.validation.js";
 
 const router = express.Router();
 
@@ -39,4 +39,4 @@ router.delete(
   bookingController.remove,
 );
 
-module.exports = router;
+export default router;

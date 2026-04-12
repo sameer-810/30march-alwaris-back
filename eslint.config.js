@@ -1,9 +1,9 @@
-module.exports = [
+export default [
   {
-    files: ["**/*.js", "**/*.cjs"],
+    files: ["**/*.js"],
     languageOptions: {
       ecmaVersion: 2022,
-      sourceType: "commonjs",
+      sourceType: "module",
       globals: {
         console: "readonly",
         process: "readonly",

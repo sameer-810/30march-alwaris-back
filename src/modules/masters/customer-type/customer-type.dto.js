@@ -8,4 +8,4 @@ function toCustomerTypeDto(doc) {
   };
 }
 
-module.exports = { toCustomerTypeDto };
+export { toCustomerTypeDto };

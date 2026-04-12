@@ -1,8 +1,8 @@
-const { z } = require("zod");
-const {
+import { z } from "zod";
+import {
   buildResourceListQuerySchema,
   createResourceCrudSchemas,
-} = require("../../common/shared-crud/resourceValidationHelpers");
+} from "../../common/shared-crud/resourceValidationHelpers.js";
 
 const customerTypeBodyCreateSchema = z.object({
   customerType: z.string().trim().min(1, "Customer Type is required"),
@@ -28,7 +28,7 @@ const {
   listQuerySchema: customerTypeListQuerySchema,
 });
 
-module.exports = {
+export {
   customerTypeCreateSchema,
   customerTypeUpdateSchema,
   customerTypeGetSchema,

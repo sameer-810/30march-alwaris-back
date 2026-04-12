@@ -1,15 +1,15 @@
-const express = require("express");
-const { validateRequest } = require("../../../middlewares/validateRequest");
-const { authenticate } = require("../../../middlewares/auth");
-const { authorizeRoles } = require("../../../middlewares/role.middleware");
-const { portController } = require("./port.controller");
-const {
+import express from "express";
+import { validateRequest } from "../../../middlewares/validateRequest.js";
+import { authenticate } from "../../../middlewares/auth.js";
+import { authorizeRoles } from "../../../middlewares/role.middleware.js";
+import { portController } from "./port.controller.js";
+import {
   portCreateSchema,
   portUpdateSchema,
   portGetSchema,
   portDeleteSchema,
   portListSchema,
-} = require("./port.validation");
+} from "./port.validation.js";
 
 const router = express.Router();
 
@@ -21,4 +21,4 @@ router.get("/:id", validateRequest(portGetSchema), portController.get);
 router.patch("/:id", validateRequest(portUpdateSchema), portController.update);
 router.delete("/:id", validateRequest(portDeleteSchema), portController.remove);
 
-module.exports = router;
+export default router;

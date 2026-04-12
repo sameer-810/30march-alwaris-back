@@ -1,6 +1,6 @@
-const { authService } = require("./auth.service");
-const { sendSuccess } = require("../../utils/response");
-const { asyncHandler } = require("../../utils/asyncHandler");
+import { authService } from "./auth.service.js";
+import { sendSuccess } from "../../utils/response.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
 
 const authController = {
   login: asyncHandler(async (req, res) => {
@@ -9,4 +9,4 @@ const authController = {
   }),
 };
 
-module.exports = { authController };
+export { authController };

@@ -1,12 +1,10 @@
-const { portService } = require("./port.service");
-const { toPortDto } = require("./port.dto");
-const {
-  createResourceController,
-} = require("../../common/shared-crud/createResourceController");
+import { portService } from "./port.service.js";
+import { toPortDto } from "./port.dto.js";
+import { createResourceController } from "../../common/shared-crud/createResourceController.js";
 
 const portController = createResourceController({
   service: portService,
   toDto: toPortDto,
 });
 
-module.exports = { portController };
+export { portController };

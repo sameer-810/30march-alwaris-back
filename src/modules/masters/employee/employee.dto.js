@@ -18,4 +18,4 @@ function toEmployeeDto(doc) {
   };
 }
 
-module.exports = { toEmployeeDto };
+export { toEmployeeDto };

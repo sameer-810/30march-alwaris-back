@@ -32,4 +32,4 @@ function toVendorAgentDto(doc) {
   };
 }
 
-module.exports = { toVendorAgentDto };
+export { toVendorAgentDto };

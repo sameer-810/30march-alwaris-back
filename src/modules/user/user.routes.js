@@ -1,15 +1,15 @@
-const express = require("express");
-const { validateRequest } = require("../../middlewares/validateRequest");
-const { authenticate } = require("../../middlewares/auth");
-const { authorizeRoles } = require("../../middlewares/role.middleware");
-const {
+import express from "express";
+import { validateRequest } from "../../middlewares/validateRequest.js";
+import { authenticate } from "../../middlewares/auth.js";
+import { authorizeRoles } from "../../middlewares/role.middleware.js";
+import {
   userCreateSchema,
   userUpdateSchema,
   userPasswordResetSchema,
   userDeleteSchema,
   userListSchema,
-} = require("./user.validation");
-const { userController } = require("./user.controller");
+} from "./user.validation.js";
+import { userController } from "./user.controller.js";
 
 const router = express.Router();
 
@@ -25,4 +25,4 @@ router.post(
 );
 router.delete("/:id", validateRequest(userDeleteSchema), userController.remove);
 
-module.exports = router;
+export default router;

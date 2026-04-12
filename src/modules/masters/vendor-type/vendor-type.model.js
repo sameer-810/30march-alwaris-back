@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const VendorTypeSchema = new mongoose.Schema(
   {
@@ -20,4 +20,4 @@ VendorTypeSchema.index({ vendorType: "text" });
 
 const VendorTypeModel = mongoose.model("VendorType", VendorTypeSchema);
 
-module.exports = { VendorTypeModel };
+export { VendorTypeModel };

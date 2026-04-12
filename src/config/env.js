@@ -1,4 +1,4 @@
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -28,4 +28,4 @@ const env = Object.freeze({
   AWS_SECRET_ACCESS_KEY: required("AWS_SECRET_ACCESS_KEY"),
 });
 
-module.exports = { env };
+export { env };

@@ -124,7 +124,7 @@ function createCounterFieldHelpers({
   };
 }
 
-module.exports = {
+export {
   createCounterFieldHelpers,
   escapeRegex,
   findActiveById,

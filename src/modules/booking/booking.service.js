@@ -1,7 +1,5 @@
-const {
-  createResourceService,
-} = require("../common/shared-crud/createResourceService");
-const { bookingRepository } = require("./booking.repository");
+import { createResourceService } from "../common/shared-crud/createResourceService.js";
+import { bookingRepository } from "./booking.repository.js";
 
 function normalizeAmountRow(row = {}) {
   const qty = Number(row.qty || 0);
@@ -93,4 +91,4 @@ const bookingService = {
   },
 };
 
-module.exports = { bookingService };
+export { bookingService };

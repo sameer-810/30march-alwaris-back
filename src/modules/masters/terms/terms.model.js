@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const TermsSchema = new mongoose.Schema(
   {
@@ -21,4 +21,4 @@ TermsSchema.index({ terms: "text", description: "text" });
 
 const TermsModel = mongoose.model("Terms", TermsSchema);
 
-module.exports = { TermsModel };
+export { TermsModel };

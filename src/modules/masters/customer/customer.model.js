@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const CustomerSchema = new mongoose.Schema(
   {
@@ -46,4 +46,4 @@ CustomerSchema.index({
 
 const CustomerModel = mongoose.model("Customer", CustomerSchema);
 
-module.exports = { CustomerModel };
+export { CustomerModel };

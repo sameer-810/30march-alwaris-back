@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const TermsConditionSchema = new mongoose.Schema(
   {
@@ -23,4 +23,4 @@ const TermsConditionModel = mongoose.model(
   TermsConditionSchema,
 );
 
-module.exports = { TermsConditionModel };
+export { TermsConditionModel };

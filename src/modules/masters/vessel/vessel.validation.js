@@ -1,8 +1,8 @@
-const { z } = require("zod");
-const {
+import { z } from "zod";
+import {
   buildResourceListQuerySchema,
   createResourceCrudSchemas,
-} = require("../../common/shared-crud/resourceValidationHelpers");
+} from "../../common/shared-crud/resourceValidationHelpers.js";
 
 const vesselBodyCreateSchema = z.object({
   vesselName: z.string().trim().min(1, "Vessel Name is required"),
@@ -28,7 +28,7 @@ const {
   listQuerySchema: vesselListQuerySchema,
 });
 
-module.exports = {
+export {
   vesselCreateSchema,
   vesselUpdateSchema,
   vesselGetSchema,

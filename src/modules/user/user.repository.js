@@ -1,7 +1,5 @@
-const { UserModel } = require("./user.model");
-const {
-  escapeRegex,
-} = require("../common/shared-crud/resourceRepositoryHelpers");
+import { UserModel } from "./user.model.js";
+import { escapeRegex } from "../common/shared-crud/resourceRepositoryHelpers.js";
 
 const userRepository = {
   create(data) {
@@ -66,4 +64,4 @@ const userRepository = {
   },
 };
 
-module.exports = { userRepository };
+export { userRepository };

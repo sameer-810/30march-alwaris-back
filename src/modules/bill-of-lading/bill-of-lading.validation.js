@@ -1,12 +1,12 @@
-const { z } = require("zod");
-const {
+import { z } from "zod";
+import {
   searchSchema,
   emptyObjectPassthroughSchema,
-} = require("../../utils/validationPrimitives");
-const {
+} from "../../utils/validationPrimitives.js";
+import {
   buildResourceListQuerySchema,
   createResourceCrudSchemas,
-} = require("../common/shared-crud/resourceValidationHelpers");
+} from "../common/shared-crud/resourceValidationHelpers.js";
 
 const statusOptions = ["Draft", "RFS", "SOB"];
 const sizeOptions = ["20", "40", "45"];
@@ -122,7 +122,7 @@ const billOfLadingJobOptionsSchema = z.object({
   query: emptyObjectPassthroughSchema,
 });
 
-module.exports = {
+export {
   billOfLadingCreateSchema,
   billOfLadingUpdateSchema,
   billOfLadingGetSchema,

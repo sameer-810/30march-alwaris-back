@@ -1,5 +1,5 @@
-const { AppError } = require("../utils/AppError");
-const { logger } = require("../config/logger");
+import { AppError } from "../utils/AppError.js";
+import { logger } from "../config/logger.js";
 
 const STATUS_CODE_TO_ERROR_CODE = {
   400: "BAD_REQUEST",
@@ -42,4 +42,4 @@ function errorHandler(err, _req, res, _next) {
   });
 }
 
-module.exports = { errorHandler };
+export { errorHandler };

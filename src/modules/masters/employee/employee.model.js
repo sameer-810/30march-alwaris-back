@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const EmployeeSchema = new mongoose.Schema(
   {
@@ -43,4 +43,4 @@ EmployeeSchema.index({
 
 const EmployeeModel = mongoose.model("Employee", EmployeeSchema);
 
-module.exports = { EmployeeModel };
+export { EmployeeModel };

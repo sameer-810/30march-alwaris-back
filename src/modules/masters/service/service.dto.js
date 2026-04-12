@@ -8,4 +8,4 @@ function toServiceDto(doc) {
   };
 }
 
-module.exports = { toServiceDto };
+export { toServiceDto };

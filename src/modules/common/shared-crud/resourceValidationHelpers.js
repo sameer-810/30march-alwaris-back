@@ -1,12 +1,12 @@
-const { z } = require("zod");
-const {
+import { z } from "zod";
+import {
   objectIdSchema,
   searchSchema,
   pageSchema,
   limitSchema,
   sortDirSchema,
   emptyObjectPassthroughSchema,
-} = require("../../../utils/validationPrimitives");
+} from "../../../utils/validationPrimitives.js";
 
 function buildResourceListQuerySchema({ sortByEnum, extraQueryShape = {} }) {
   return z.object({
@@ -55,7 +55,4 @@ function createResourceCrudSchemas({
   };
 }
 
-module.exports = {
-  buildResourceListQuerySchema,
-  createResourceCrudSchemas,
-};
+export { buildResourceListQuerySchema, createResourceCrudSchemas };

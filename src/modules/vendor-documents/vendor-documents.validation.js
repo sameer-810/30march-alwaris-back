@@ -1,7 +1,5 @@
-const { z } = require("zod");
-const {
-  emptyObjectPassthroughSchema,
-} = require("../../utils/validationPrimitives");
+import { z } from "zod";
+import { emptyObjectPassthroughSchema } from "../../utils/validationPrimitives.js";
 
 const jobNoParamsSchema = z.object({
   jobNo: z.coerce.number().int().min(1),
@@ -73,7 +71,7 @@ const vendorDocumentsVendorRowDownloadSchema = z.object({
   query: emptyObjectPassthroughSchema,
 });
 
-module.exports = {
+export {
   vendorDocumentsJobOptionsSchema,
   vendorDocumentsByJobSchema,
   vendorDocumentsMasterPresignSchema,

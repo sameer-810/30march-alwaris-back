@@ -1,7 +1,7 @@
-const { userService } = require("./user.service");
-const { toUserDto } = require("./user.dto");
-const { sendNoContent, sendSuccess } = require("../../utils/response");
-const { asyncHandler } = require("../../utils/asyncHandler");
+import { userService } from "./user.service.js";
+import { toUserDto } from "./user.dto.js";
+import { sendNoContent, sendSuccess } from "../../utils/response.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
 
 const userController = {
   create: asyncHandler(async (req, res) => {
@@ -39,4 +39,4 @@ const userController = {
   }),
 };
 
-module.exports = { userController };
+export { userController };
