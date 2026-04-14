@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const CustomerTypeSchema = new mongoose.Schema(
   {
-    code: { type: Number, unique: true, index: true, sparse: true },
+    code: { type: Number, unique: true, sparse: true },
     customerType: {
       type: String,
       required: true,

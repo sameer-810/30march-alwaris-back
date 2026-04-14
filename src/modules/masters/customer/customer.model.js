@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const CustomerSchema = new mongoose.Schema(
   {
-    code: { type: Number, required: true, unique: true, index: true },
+    code: { type: Number, required: true, unique: true },
     customerTypeId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "CustomerType",
@@ -42,6 +42,8 @@ CustomerSchema.index({
   emailId: "text",
   city: "text",
   state: "text",
+  contactPerson: "text",
+  contactNo: "text",
 });
 
 const CustomerModel = mongoose.model("Customer", CustomerSchema);

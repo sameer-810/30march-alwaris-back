@@ -113,9 +113,34 @@ function createCounterFieldHelpers({
     }
   }
 
-  async function createWithAutoValue(data) {
-    const nextValue = await getNextValue();
-    return model.create({ ...data, [fieldName]: nextValue });
+  async function createWithAutoValue(data, maxRetries = 3) {
+    const doc = new model(data);
+    await doc.validate(); // Ensure it passes schema validation before consuming sequence
+
+    let attempt = 0;
+    while (attempt < maxRetries) {
+      try {
+        doc[fieldName] = await getNextValue();
+        return await doc.save();
+      } catch (error) {
+        // 11000 is MongoDB's Duplicate Key Error code.
+        // If the collision was exactly on our sequence field, retry.
+        const isDuplicateKey = error.code === 11000;
+        const isTargetField =
+          error.keyPattern && error.keyPattern[fieldName] === 1;
+
+        if (isDuplicateKey && isTargetField) {
+          attempt++;
+          continue; // Loop naturally grabs the next sequence and attempts to save again
+        }
+
+        throw error; // If it's a different error (e.g. timeout, or different unique field), throw it.
+      }
+    }
+
+    throw new Error(
+      `Failed to generate a unique ${fieldName} after ${maxRetries} attempts.`,
+    );
   }
 
   return {

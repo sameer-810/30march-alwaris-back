@@ -4,7 +4,7 @@ function toBookingDto(booking) {
   const getRefId = (value) => {
     if (!value) return "";
     if (typeof value === "string") return value;
-    if (typeof value === "object") return String(value._id || "");
+    if (typeof value === "object") return String(value._id || value);
     return String(value);
   };
 
@@ -46,7 +46,7 @@ function toBookingDto(booking) {
   const expenseDetails = Array.isArray(booking.expenseDetails)
     ? booking.expenseDetails.map((item) => ({
         vendorName: getRefId(item?.vendorName),
-        vendorNameName: getRefLabel(item?.vendorName),
+        vendorLabel: getRefLabel(item?.vendorName),
         chargeDescription: getRefId(item?.chargeDescription),
         chargeDescriptionName: getRefLabel(item?.chargeDescription),
         chargedPer: item?.chargedPer || "DOCS",

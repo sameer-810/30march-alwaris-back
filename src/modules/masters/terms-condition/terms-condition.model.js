@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const TermsConditionSchema = new mongoose.Schema(
   {
-    counter: { type: Number, unique: true, index: true, sparse: true },
+    counter: { type: Number, unique: true, sparse: true },
     lineOfBixId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "LineOfBix",

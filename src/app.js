@@ -29,6 +29,8 @@ import bookingRoutes from "./modules/booking/booking.routes.js";
 import billOfLadingRoutes from "./modules/bill-of-lading/bill-of-lading.routes.js";
 import vendorDocumentsRoutes from "./modules/vendor-documents/vendor-documents.routes.js";
 
+import { requestContextProvider } from "./middlewares/requestContextProvider.js";
+
 const app = express();
 
 const corsOrigin = env.CORS_ORIGIN
@@ -49,7 +51,9 @@ app.use(
 );
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
-app.use(pinoHttp({ logger, autoLogging: true }));
+
+app.use(requestContextProvider);
+app.use(pinoHttp({ logger, autoLogging: true, genReqId: (req) => req.id }));
 app.use(
   rateLimit({
     windowMs: 60 * 1000,

@@ -83,7 +83,7 @@ const BillOfLadingConsignmentDetailsSchema = new mongoose.Schema(
 
 const BillOfLadingSchema = new mongoose.Schema(
   {
-    hblNo: { type: Number, required: true, unique: true, index: true },
+    hblNo: { type: Number, required: true, unique: true },
     jobNo: { type: Number, required: true, index: true },
     referenceNo: { type: String, required: true, trim: true, index: true },
     status: {

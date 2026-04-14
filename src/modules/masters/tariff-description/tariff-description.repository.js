@@ -26,8 +26,6 @@ const tariffDescriptionRepository = {
   },
 
   async findMany({ search, page, limit, sortBy, sortDir }) {
-    await counterHelpers.ensureLegacyValues();
-
     const q = { isDeleted: false };
 
     if (search) {

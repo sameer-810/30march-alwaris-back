@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const ShipmentSchema = new mongoose.Schema(
   {
-    code: { type: Number, unique: true, index: true, sparse: true },
+    code: { type: Number, unique: true, sparse: true },
     shipmentType: {
       type: String,
       required: true,

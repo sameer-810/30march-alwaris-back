@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const TariffDescriptionSchema = new mongoose.Schema(
   {
-    counter: { type: Number, unique: true, index: true, sparse: true },
+    counter: { type: Number, unique: true, sparse: true },
     description: {
       type: String,
       required: true,

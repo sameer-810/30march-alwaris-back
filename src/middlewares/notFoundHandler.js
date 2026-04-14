@@ -1,18 +1,12 @@
-function notFoundHandler(req, res, _next) {
-  const message = "Route not found";
+import { AppError } from "../utils/AppError.js";
 
-  res.status(404).json({
-    success: false,
-    error: {
+function notFoundHandler(req, _res, next) {
+  next(
+    new AppError(`Route not found: ${req.originalUrl}`, 404, {
       code: "NOT_FOUND",
-      message,
-      details: {
-        path: req.originalUrl,
-      },
-    },
-    message,
-    path: req.originalUrl,
-  });
+      details: { path: req.originalUrl },
+    }),
+  );
 }
 
 export { notFoundHandler };

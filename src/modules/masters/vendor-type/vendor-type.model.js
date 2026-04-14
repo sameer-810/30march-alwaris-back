@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const VendorTypeSchema = new mongoose.Schema(
   {
-    code: { type: Number, unique: true, index: true, sparse: true },
+    code: { type: Number, unique: true, sparse: true },
     vendorType: {
       type: String,
       required: true,

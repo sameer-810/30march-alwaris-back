@@ -2,7 +2,6 @@ import { BookingModel } from "./booking.model.js";
 import { CounterModel } from "../common/shared-crud/counter.model.js";
 import {
   createCounterFieldHelpers,
-  escapeRegex,
   findActiveById,
   runPagedQuery,
   softDeleteActiveById,
@@ -15,6 +14,26 @@ const counterHelpers = createCounterFieldHelpers({
   counterId: "bookingJobNo",
   fieldName: "jobNo",
 });
+
+const BOOKING_POPULATE = [
+  { path: "rateAgreedBy", select: "employeeName" },
+  { path: "bookingParty", select: "customerName" },
+  { path: "kindAttention", select: "employeeName" },
+  { path: "portOfLoading", select: "portName" },
+  { path: "portOfDestination", select: "portName" },
+  { path: "terms", select: "terms" },
+  { path: "lineOfBix", select: "lineOfBix" },
+  { path: "shipmentDetails.vessel", select: "vesselName" },
+  { path: "billingParty", select: "customerName" },
+  { path: "incomeDetails.incomeBillingParty", select: "customerName" },
+  { path: "incomeDetails.chargeDescription", select: "description" },
+  { path: "expenseDetails.vendorName", select: "vendorName customerName" },
+  { path: "expenseDetails.chargeDescription", select: "description" },
+];
+
+const BOOKING_LIST_POPULATE = [
+  { path: "bookingParty", select: "customerName" },
+];
 
 const bookingRepository = {
   async createWithAutoJobNo(data) {
@@ -32,56 +51,22 @@ const bookingRepository = {
   },
 
   findById(id) {
-    return findActiveById(BookingModel, id, [
-      { path: "rateAgreedBy", select: "employeeName" },
-      { path: "bookingParty", select: "customerName" },
-      { path: "kindAttention", select: "employeeName" },
-      { path: "portOfLoading", select: "portName" },
-      { path: "portOfDestination", select: "portName" },
-      { path: "terms", select: "terms" },
-      { path: "lineOfBix", select: "lineOfBix" },
-      { path: "shipmentDetails.vessel", select: "vesselName" },
-      { path: "billingParty", select: "customerName" },
-      { path: "incomeDetails.incomeBillingParty", select: "customerName" },
-      { path: "incomeDetails.chargeDescription", select: "description" },
-      { path: "expenseDetails.vendorName", select: "vendorName customerName" },
-      { path: "expenseDetails.chargeDescription", select: "description" },
-    ]);
+    return findActiveById(BookingModel, id, BOOKING_POPULATE);
   },
 
   async findMany({ search, page, limit, sortBy, sortDir }) {
-    await counterHelpers.ensureLegacyValues();
-
     const q = { isDeleted: false };
     if (search) {
-      const safeSearch = escapeRegex(search);
       const asNumber = Number(search);
       const hasNumber =
         !Number.isNaN(asNumber) && String(asNumber) === String(search).trim();
 
-      q.$or = [
-        { shipper: { $regex: safeSearch, $options: "i" } },
-        { consignee: { $regex: safeSearch, $options: "i" } },
-        { modeOfTransport: { $regex: safeSearch, $options: "i" } },
-        { exportImport: { $regex: safeSearch, $options: "i" } },
-        { status: { $regex: safeSearch, $options: "i" } },
-        { line: { $regex: safeSearch, $options: "i" } },
-        { mbl: { $regex: safeSearch, $options: "i" } },
-        { orderReference: { $regex: safeSearch, $options: "i" } },
-        {
-          "shipmentDetails.generatedReference": {
-            $regex: safeSearch,
-            $options: "i",
-          },
-        },
-        {
-          "shipmentDetails.containerNo": { $regex: safeSearch, $options: "i" },
-        },
-        { "shipmentDetails.hbl": { $regex: safeSearch, $options: "i" } },
-      ];
-
       if (hasNumber) {
-        q.$or.push({ jobNo: asNumber });
+        // Match exact job numbers or text index
+        q.$or = [{ $text: { $search: search } }, { jobNo: asNumber }];
+      } else {
+        // Match against the indexed text columns natively
+        q.$text = { $search: search };
       }
     }
 
@@ -92,43 +77,12 @@ const bookingRepository = {
       limit,
       sortBy,
       sortDir,
-      populate: [
-        { path: "rateAgreedBy", select: "employeeName" },
-        { path: "bookingParty", select: "customerName" },
-        { path: "kindAttention", select: "employeeName" },
-        { path: "portOfLoading", select: "portName" },
-        { path: "portOfDestination", select: "portName" },
-        { path: "terms", select: "terms" },
-        { path: "lineOfBix", select: "lineOfBix" },
-        { path: "shipmentDetails.vessel", select: "vesselName" },
-        { path: "billingParty", select: "customerName" },
-        { path: "incomeDetails.incomeBillingParty", select: "customerName" },
-        { path: "incomeDetails.chargeDescription", select: "description" },
-        {
-          path: "expenseDetails.vendorName",
-          select: "vendorName customerName",
-        },
-        { path: "expenseDetails.chargeDescription", select: "description" },
-      ],
+      populate: BOOKING_LIST_POPULATE,
     });
   },
 
   updateById(id, patch) {
-    return updateActiveById(BookingModel, id, patch, [
-      { path: "rateAgreedBy", select: "employeeName" },
-      { path: "bookingParty", select: "customerName" },
-      { path: "kindAttention", select: "employeeName" },
-      { path: "portOfLoading", select: "portName" },
-      { path: "portOfDestination", select: "portName" },
-      { path: "terms", select: "terms" },
-      { path: "lineOfBix", select: "lineOfBix" },
-      { path: "shipmentDetails.vessel", select: "vesselName" },
-      { path: "billingParty", select: "customerName" },
-      { path: "incomeDetails.incomeBillingParty", select: "customerName" },
-      { path: "incomeDetails.chargeDescription", select: "description" },
-      { path: "expenseDetails.vendorName", select: "vendorName customerName" },
-      { path: "expenseDetails.chargeDescription", select: "description" },
-    ]);
+    return updateActiveById(BookingModel, id, patch, BOOKING_POPULATE);
   },
 
   softDeleteById(id) {

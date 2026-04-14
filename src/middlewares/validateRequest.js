@@ -11,10 +11,12 @@ function validateRequest(schema) {
     if (!result.success) {
       return next(
         new AppError("Validation error", 400, {
-          issues: result.error.issues.map((i) => ({
-            path: i.path,
-            message: i.message,
-          })),
+          details: {
+            issues: result.error.issues.map((i) => ({
+              path: i.path,
+              message: i.message,
+            })),
+          },
         }),
       );
     }

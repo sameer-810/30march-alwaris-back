@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const EmployeeSchema = new mongoose.Schema(
   {
-    employeeId: { type: String, required: true, unique: true, index: true }, // e.g. EMP000001
+    employeeId: { type: String, required: true, unique: true }, // e.g. EMP000001
     isActive: { type: Boolean, default: true, index: true },
     isApproved: { type: Boolean, default: false, index: true },
 

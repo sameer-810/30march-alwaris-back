@@ -30,8 +30,6 @@ const vesselRepository = {
   },
 
   async findMany({ search, page, limit, sortBy, sortDir }) {
-    await codeHelpers.ensureLegacyValues();
-
     const q = { isDeleted: false };
 
     if (search) {

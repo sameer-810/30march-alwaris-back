@@ -127,8 +127,6 @@ const billOfLadingRepository = {
   },
 
   async findMany({ search, page, limit, sortBy, sortDir }) {
-    await counterHelpers.ensureLegacyValues();
-
     const query = { isDeleted: false };
 
     if (search) {

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const VendorAgentSchema = new mongoose.Schema(
   {
-    code: { type: String, required: true, unique: true, index: true },
+    code: { type: String, required: true, unique: true },
     vendorTypeId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "VendorType",

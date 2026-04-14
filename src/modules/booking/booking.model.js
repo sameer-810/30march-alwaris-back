@@ -175,7 +175,7 @@ const BookingExpenseDetailSchema = new mongoose.Schema(
 
 const BookingSchema = new mongoose.Schema(
   {
-    jobNo: { type: Number, required: true, unique: true, index: true },
+    jobNo: { type: Number, required: true, unique: true },
     jobDate: { type: Date, required: true, index: true },
     rateAgreedBy: {
       type: mongoose.Schema.Types.ObjectId,
@@ -272,8 +272,11 @@ const BookingSchema = new mongoose.Schema(
 BookingSchema.index({
   shipper: "text",
   consignee: "text",
-  "shipmentDetails.hbl": "text",
   mbl: "text",
+  orderReference: "text",
+  "shipmentDetails.hbl": "text",
+  "shipmentDetails.containerNo": "text",
+  "shipmentDetails.generatedReference": "text",
 });
 
 const BookingModel = mongoose.model("Booking", BookingSchema);
