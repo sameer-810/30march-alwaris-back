@@ -16,7 +16,7 @@ const VendorDocumentRowSchema = new mongoose.Schema(
   {
     rowKey: { type: String, required: true, trim: true },
     rowIndex: { type: Number, required: true, min: 0 },
-    vendorName: {
+    vendor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "VendorAgent",
       required: true,

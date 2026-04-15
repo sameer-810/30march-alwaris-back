@@ -25,28 +25,6 @@ async function getNextVendorAgentCode() {
   return formatCode(counter.seq);
 }
 
-async function assignCodeIfMissing(docId) {
-  const code = await getNextVendorAgentCode();
-  await VendorAgentModel.updateOne(
-    { _id: docId, $or: [{ code: { $exists: false } }, { code: null }] },
-    { $set: { code } },
-  );
-}
-
-async function ensureLegacyCodes() {
-  const legacyRows = await VendorAgentModel.find({
-    isDeleted: false,
-    $or: [{ code: { $exists: false } }, { code: null }],
-  })
-    .sort({ createdAt: 1 })
-    .select("_id")
-    .lean();
-
-  for (const row of legacyRows) {
-    await assignCodeIfMissing(row._id);
-  }
-}
-
 const vendorAgentRepository = {
   findById(id) {
     return findActiveById(VendorAgentModel, id, {
@@ -61,12 +39,8 @@ const vendorAgentRepository = {
   },
 
   async findMany({ search, vendorTypeId, page, limit, sortBy, sortDir }) {
-    await ensureLegacyCodes();
-
     const q = { isDeleted: false };
     if (vendorTypeId) q.vendorTypeId = vendorTypeId;
-
-    const resolvedSortBy = sortBy;
 
     if (search) {
       const safeSearch = escapeRegex(search);
@@ -86,7 +60,7 @@ const vendorAgentRepository = {
       query: q,
       page,
       limit,
-      sortBy: resolvedSortBy,
+      sortBy,
       sortDir,
       populate: { path: "vendorTypeId", select: "vendorType" },
     });

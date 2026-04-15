@@ -39,8 +39,8 @@ const isoDateStringSchema = z
   .refine((value) => !Number.isNaN(Date.parse(value)), "Invalid date");
 
 const bookingIncomeDetailSchema = z.object({
-  incomeBillingParty: objectIdSchema,
-  chargeDescription: objectIdSchema,
+  incomeBillingPartyId: objectIdSchema,
+  chargeDescriptionId: objectIdSchema,
   chargedPer: z.enum(chargedPerOptions).default("DOCS"),
   qty: z.number().min(1).default(1),
   rate: z.number().min(0).default(0),
@@ -53,8 +53,8 @@ const bookingIncomeDetailSchema = z.object({
 });
 
 const bookingExpenseDetailSchema = z.object({
-  vendorName: objectIdSchema,
-  chargeDescription: objectIdSchema,
+  vendorId: objectIdSchema,
+  chargeDescriptionId: objectIdSchema,
   chargedPer: z.enum(chargedPerOptions).default("DOCS"),
   qty: z.number().min(1).default(1),
   rate: z.number().min(0).default(0),

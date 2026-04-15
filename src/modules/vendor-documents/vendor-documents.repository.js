@@ -2,7 +2,7 @@ import { BookingModel } from "../booking/booking.model.js";
 import { VendorDocumentsModel } from "./vendor-documents.model.js";
 
 const bookingPopulate = [
-  { path: "expenseDetails.vendorName", select: "vendorName customerName" },
+  { path: "expenseDetails.vendor", select: "vendorName customerName" },
   { path: "expenseDetails.chargeDescription", select: "description" },
 ];
 
@@ -61,7 +61,7 @@ const vendorDocumentsRepository = {
     bookingId,
     rowKey,
     rowIndex,
-    vendorName,
+    vendor,
     chargeDescription,
     amount,
     file,
@@ -69,7 +69,7 @@ const vendorDocumentsRepository = {
     const rowPayload = {
       rowKey,
       rowIndex,
-      vendorName,
+      vendor,
       chargeDescription,
       amount,
       file,

@@ -39,7 +39,7 @@ function getRefLabel(value) {
 }
 
 function buildRowKey(item, rowIndex) {
-  const vendorPart = safeSegment(getRefId(item?.vendorName));
+  const vendorPart = safeSegment(getRefId(item?.vendor));
   const chargePart = safeSegment(getRefId(item?.chargeDescription));
   const amountPart = Number(item?.amount || 0).toFixed(2);
   return `${rowIndex}-${vendorPart}-${chargePart}-${amountPart}`;
@@ -62,8 +62,8 @@ function buildExpenseRows(booking, storedDoc) {
     return {
       rowKey,
       rowIndex,
-      vendorNameId: getRefId(row?.vendorName),
-      vendorName: getRefLabel(row?.vendorName) || "-",
+      vendorId: getRefId(row?.vendor),
+      vendorName: getRefLabel(row?.vendor) || "-",
       descriptionId: getRefId(row?.chargeDescription),
       description: getRefLabel(row?.chargeDescription) || "-",
       amount: Number(row?.amount || 0),
@@ -293,7 +293,7 @@ const vendorDocumentsService = {
       bookingId: booking._id,
       rowKey,
       rowIndex: row.rowIndex,
-      vendorName: row.vendorNameId,
+      vendor: row.vendorId,
       chargeDescription: row.descriptionId,
       amount: row.amount,
       file: buildStoredFileMeta({ key, upload }),

@@ -27,7 +27,7 @@ const BOOKING_POPULATE = [
   { path: "billingParty", select: "customerName" },
   { path: "incomeDetails.incomeBillingParty", select: "customerName" },
   { path: "incomeDetails.chargeDescription", select: "description" },
-  { path: "expenseDetails.vendorName", select: "vendorName customerName" },
+  { path: "expenseDetails.vendor", select: "vendorName customerName" },
   { path: "expenseDetails.chargeDescription", select: "description" },
 ];
 

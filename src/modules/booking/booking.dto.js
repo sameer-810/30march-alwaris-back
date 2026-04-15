@@ -1,66 +1,62 @@
+import { toNumber, toRef, toString } from "../common/shared-crud/dtoMappers.js";
+
 function toBookingDto(booking) {
   if (!booking) return null;
 
-  const getRefId = (value) => {
-    if (!value) return "";
-    if (typeof value === "string") return value;
-    if (typeof value === "object") return String(value._id || value);
-    return String(value);
-  };
-
-  const getRefLabel = (value) => {
-    if (!value) return "";
-    if (typeof value === "string") return "";
-    if (typeof value === "object") {
-      if (value.vendorName) return value.vendorName;
-      if (value.customerName) return value.customerName;
-      if (value.employeeName) return value.employeeName;
-      if (value.portName) return value.portName;
-      if (value.terms) return value.terms;
-      if (value.lineOfBix) return value.lineOfBix;
-      if (value.vesselName) return value.vesselName;
-      if (value.description) return value.description;
-      return "";
-    }
-    return "";
-  };
-
   const incomeDetails = Array.isArray(booking.incomeDetails)
-    ? booking.incomeDetails.map((item) => ({
-        incomeBillingParty: getRefId(item?.incomeBillingParty),
-        incomeBillingPartyName: getRefLabel(item?.incomeBillingParty),
-        chargeDescription: getRefId(item?.chargeDescription),
-        chargeDescriptionName: getRefLabel(item?.chargeDescription),
-        chargedPer: item?.chargedPer || "DOCS",
-        qty: item?.qty ?? 1,
-        rate: item?.rate ?? 0,
-        currency: item?.currency || "USD",
-        size: item?.size || "20",
-        type: item?.type || "GP",
-        amount: item?.amount ?? 0,
-        exRate: item?.exRate ?? 1,
-        remarks: item?.remarks || "",
-      }))
+    ? booking.incomeDetails.map((item) => {
+        const incomeBillingPartyRef = toRef(item?.incomeBillingParty, [
+          "customerName",
+          "vendorName",
+          "employeeName",
+        ]);
+        const chargeDescriptionRef = toRef(item?.chargeDescription, [
+          "description",
+        ]);
+
+        return {
+          incomeBillingPartyId: incomeBillingPartyRef.id,
+          incomeBillingPartyName: incomeBillingPartyRef.label,
+          chargeDescriptionId: chargeDescriptionRef.id,
+          chargeDescriptionName: chargeDescriptionRef.label,
+          chargedPer: item?.chargedPer || "DOCS",
+          qty: item?.qty ?? 1,
+          rate: item?.rate ?? 0,
+          currency: item?.currency || "USD",
+          size: item?.size || "20",
+          type: item?.type || "GP",
+          amount: item?.amount ?? 0,
+          exRate: item?.exRate ?? 1,
+          remarks: toString(item?.remarks),
+        };
+      })
     : [];
 
   const expenseDetails = Array.isArray(booking.expenseDetails)
-    ? booking.expenseDetails.map((item) => ({
-        vendorName: getRefId(item?.vendorName),
-        vendorLabel: getRefLabel(item?.vendorName),
-        chargeDescription: getRefId(item?.chargeDescription),
-        chargeDescriptionName: getRefLabel(item?.chargeDescription),
-        chargedPer: item?.chargedPer || "DOCS",
-        qty: item?.qty ?? 1,
-        rate: item?.rate ?? 0,
-        currency: item?.currency || "USD",
-        size: item?.size || "20",
-        type: item?.type || "GP",
-        amount: item?.amount ?? 0,
-        exRate: item?.exRate ?? 1,
-        invoiceNo: item?.invoiceNo || "",
-        date: item?.date || "",
-        remarks: item?.remarks || "",
-      }))
+    ? booking.expenseDetails.map((item) => {
+        const vendorRef = toRef(item?.vendor, ["vendorName"]);
+        const chargeDescriptionRef = toRef(item?.chargeDescription, [
+          "description",
+        ]);
+
+        return {
+          vendorId: vendorRef.id,
+          vendorName: vendorRef.label,
+          chargeDescriptionId: chargeDescriptionRef.id,
+          chargeDescriptionName: chargeDescriptionRef.label,
+          chargedPer: item?.chargedPer || "DOCS",
+          qty: item?.qty ?? 1,
+          rate: item?.rate ?? 0,
+          currency: item?.currency || "USD",
+          size: item?.size || "20",
+          type: item?.type || "GP",
+          amount: item?.amount ?? 0,
+          exRate: item?.exRate ?? 1,
+          invoiceNo: toString(item?.invoiceNo),
+          date: item?.date || "",
+          remarks: toString(item?.remarks),
+        };
+      })
     : [];
 
   const computedIncomeTotalInAed = Number(
@@ -87,53 +83,66 @@ function toBookingDto(booking) {
       ? booking.netAmountInAed
       : Number((incomeTotalInAed - expenseTotalInAed).toFixed(2));
 
+  const rateAgreedByRef = toRef(booking.rateAgreedBy, ["employeeName"]);
+  const bookingPartyRef = toRef(booking.bookingParty, ["customerName"]);
+  const kindAttentionRef = toRef(booking.kindAttention, ["employeeName"]);
+  const portOfLoadingRef = toRef(booking.portOfLoading, ["portName"]);
+  const portOfDestinationRef = toRef(booking.portOfDestination, ["portName"]);
+  const termsRef = toRef(booking.terms, ["terms"]);
+  const lineOfBixRef = toRef(booking.lineOfBix, ["lineOfBix"]);
+  const billingPartyRef = toRef(booking.billingParty, [
+    "customerName",
+    "vendorName",
+    "employeeName",
+  ]);
+
   return {
-    id: booking._id,
+    id: String(booking._id),
     jobNo: booking.jobNo,
     jobDate: booking.jobDate,
-    rateAgreedBy: getRefId(booking.rateAgreedBy),
-    rateAgreedByName: getRefLabel(booking.rateAgreedBy),
-    bookingParty: getRefId(booking.bookingParty),
-    bookingPartyName: getRefLabel(booking.bookingParty),
-    kindAttention: getRefId(booking.kindAttention),
-    kindAttentionName: getRefLabel(booking.kindAttention),
+    rateAgreedBy: rateAgreedByRef.id,
+    rateAgreedByName: rateAgreedByRef.label,
+    bookingParty: bookingPartyRef.id,
+    bookingPartyName: bookingPartyRef.label,
+    kindAttention: kindAttentionRef.id,
+    kindAttentionName: kindAttentionRef.label,
     shipper: booking.shipper,
     consignee: booking.consignee,
     modeOfTransport: booking.modeOfTransport,
     exportImport: booking.exportImport,
-    portOfLoading: getRefId(booking.portOfLoading),
-    portOfLoadingName: getRefLabel(booking.portOfLoading),
-    portOfDestination: getRefId(booking.portOfDestination),
-    portOfDestinationName: getRefLabel(booking.portOfDestination),
+    portOfLoading: portOfLoadingRef.id,
+    portOfLoadingName: portOfLoadingRef.label,
+    portOfDestination: portOfDestinationRef.id,
+    portOfDestinationName: portOfDestinationRef.label,
     line: booking.line,
     status: booking.status,
-    terms: getRefId(booking.terms),
-    termsName: getRefLabel(booking.terms),
-    lineOfBix: getRefId(booking.lineOfBix),
-    lineOfBixName: getRefLabel(booking.lineOfBix),
+    terms: termsRef.id,
+    termsName: termsRef.label,
+    lineOfBix: lineOfBixRef.id,
+    lineOfBixName: lineOfBixRef.label,
     mbl: booking.mbl,
     orderReference: booking.orderReference,
     defaultCurrency: booking.defaultCurrency,
-    billingParty: getRefId(booking.billingParty),
-    billingPartyName: getRefLabel(booking.billingParty),
+    billingParty: billingPartyRef.id,
+    billingPartyName: billingPartyRef.label,
     shipmentDetails: Array.isArray(booking.shipmentDetails)
       ? booking.shipmentDetails.map((item) => ({
-          generatedReference: item?.generatedReference || "",
-          containerNo: item?.containerNo || "",
+          generatedReference: toString(item?.generatedReference),
+          containerNo: toString(item?.containerNo),
           qty: item?.qty ?? 1,
           size: item?.size || "20",
           type: item?.type || "GP",
-          commodity: item?.commodity || "",
-          netWeight: item?.netWeight ?? 0,
-          grossWeight: item?.grossWeight ?? 0,
-          volume: item?.volume ?? 0,
-          vessel: getRefId(item?.vessel),
-          vesselName: getRefLabel(item?.vessel),
-          voyage: item?.voyage || "",
+          commodity: toString(item?.commodity),
+          netWeight: toNumber(item?.netWeight, 0),
+          grossWeight: toNumber(item?.grossWeight, 0),
+          volume: toNumber(item?.volume, 0),
+          vessel: toRef(item?.vessel, ["vesselName"]).id,
+          vesselName: toRef(item?.vessel, ["vesselName"]).label,
+          voyage: toString(item?.voyage),
           etd: item?.etd || "",
           eta: item?.eta || "",
-          hbl: item?.hbl || "",
-          remarks: item?.remarks || "",
+          hbl: toString(item?.hbl),
+          remarks: toString(item?.remarks),
         }))
       : [],
     incomeDetails,

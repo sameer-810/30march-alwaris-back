@@ -87,32 +87,6 @@ function createCounterFieldHelpers({
     return counter.seq;
   }
 
-  async function assignIfMissing(docId) {
-    const nextValue = await getNextValue();
-    await model.updateOne(
-      {
-        _id: docId,
-        $or: [{ [fieldName]: { $exists: false } }, { [fieldName]: null }],
-      },
-      { $set: { [fieldName]: nextValue } },
-    );
-  }
-
-  async function ensureLegacyValues() {
-    const legacyRows = await model
-      .find({
-        isDeleted: false,
-        $or: [{ [fieldName]: { $exists: false } }, { [fieldName]: null }],
-      })
-      .sort({ createdAt: 1 })
-      .select("_id")
-      .lean();
-
-    for (const row of legacyRows) {
-      await assignIfMissing(row._id);
-    }
-  }
-
   async function createWithAutoValue(data, maxRetries = 3) {
     const doc = new model(data);
     await doc.validate(); // Ensure it passes schema validation before consuming sequence
@@ -144,7 +118,6 @@ function createCounterFieldHelpers({
   }
 
   return {
-    ensureLegacyValues,
     createWithAutoValue,
   };
 }

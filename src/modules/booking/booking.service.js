@@ -4,11 +4,28 @@ import { bookingRepository } from "./booking.repository.js";
 function normalizeAmountRow(row = {}) {
   const qty = Number(row.qty || 0);
   const rate = Number(row.rate || 0);
-  const exRate = Number(row.exRate || 0);
+  const exRate = Number(row.exRate || 1);
   const amount = Number((qty * rate * exRate).toFixed(2));
 
+  const normalizedRow = { ...row };
+
+  if (row.incomeBillingPartyId) {
+    normalizedRow.incomeBillingParty = row.incomeBillingPartyId;
+    delete normalizedRow.incomeBillingPartyId;
+  }
+
+  if (row.vendorId) {
+    normalizedRow.vendor = row.vendorId;
+    delete normalizedRow.vendorId;
+  }
+
+  if (row.chargeDescriptionId) {
+    normalizedRow.chargeDescription = row.chargeDescriptionId;
+    delete normalizedRow.chargeDescriptionId;
+  }
+
   return {
-    ...row,
+    ...normalizedRow,
     qty,
     rate,
     exRate,

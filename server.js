@@ -6,7 +6,6 @@ import { logger } from "./src/config/logger.js";
 
 async function bootstrap() {
   await connectDb();
-  logger.info("Connected to MongoDB");
 
   const server = http.createServer(app);
   server.listen(env.PORT, () => {

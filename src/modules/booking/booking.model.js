@@ -1,5 +1,23 @@
 import mongoose from "mongoose";
 
+const BOOKING_CONTAINER_SIZE_ENUM = ["20", "40", "45"];
+const BOOKING_CONTAINER_TYPE_ENUM = [
+  "DC",
+  "DV",
+  "FR",
+  "GP",
+  "GV",
+  "HC",
+  "HD",
+  "HQ",
+  "ISO",
+  "OT",
+  "RF",
+  "SD",
+  "SR",
+];
+const BOOKING_CURRENCY_ENUM = ["USD", "AED"];
+
 const BookingShipmentDetailSchema = new mongoose.Schema(
   {
     generatedReference: { type: String, required: true, trim: true },
@@ -7,27 +25,13 @@ const BookingShipmentDetailSchema = new mongoose.Schema(
     qty: { type: Number, required: true, default: 1, min: 1 },
     size: {
       type: String,
-      enum: ["20", "40", "45"],
+      enum: BOOKING_CONTAINER_SIZE_ENUM,
       required: true,
       default: "20",
     },
     type: {
       type: String,
-      enum: [
-        "DC",
-        "DV",
-        "FR",
-        "GP",
-        "GV",
-        "HC",
-        "HD",
-        "HQ",
-        "ISO",
-        "OT",
-        "RF",
-        "SD",
-        "SR",
-      ],
+      enum: BOOKING_CONTAINER_TYPE_ENUM,
       required: true,
       default: "GP",
     },
@@ -73,33 +77,19 @@ const BookingIncomeDetailSchema = new mongoose.Schema(
     rate: { type: Number, required: true, default: 0, min: 0 },
     currency: {
       type: String,
-      enum: ["USD", "AED"],
+      enum: BOOKING_CURRENCY_ENUM,
       required: true,
       default: "USD",
     },
     size: {
       type: String,
-      enum: ["20", "40", "45"],
+      enum: BOOKING_CONTAINER_SIZE_ENUM,
       required: true,
       default: "20",
     },
     type: {
       type: String,
-      enum: [
-        "DC",
-        "DV",
-        "FR",
-        "GP",
-        "GV",
-        "HC",
-        "HD",
-        "HQ",
-        "ISO",
-        "OT",
-        "RF",
-        "SD",
-        "SR",
-      ],
+      enum: BOOKING_CONTAINER_TYPE_ENUM,
       required: true,
       default: "GP",
     },
@@ -112,7 +102,7 @@ const BookingIncomeDetailSchema = new mongoose.Schema(
 
 const BookingExpenseDetailSchema = new mongoose.Schema(
   {
-    vendorName: {
+    vendor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "VendorAgent",
       required: true,
@@ -134,33 +124,19 @@ const BookingExpenseDetailSchema = new mongoose.Schema(
     rate: { type: Number, required: true, default: 0, min: 0 },
     currency: {
       type: String,
-      enum: ["USD", "AED"],
+      enum: BOOKING_CURRENCY_ENUM,
       required: true,
       default: "USD",
     },
     size: {
       type: String,
-      enum: ["20", "40", "45"],
+      enum: BOOKING_CONTAINER_SIZE_ENUM,
       required: true,
       default: "20",
     },
     type: {
       type: String,
-      enum: [
-        "DC",
-        "DV",
-        "FR",
-        "GP",
-        "GV",
-        "HC",
-        "HD",
-        "HQ",
-        "ISO",
-        "OT",
-        "RF",
-        "SD",
-        "SR",
-      ],
+      enum: BOOKING_CONTAINER_TYPE_ENUM,
       required: true,
       default: "GP",
     },
@@ -248,7 +224,7 @@ const BookingSchema = new mongoose.Schema(
     orderReference: { type: String, trim: true, default: "" },
     defaultCurrency: {
       type: String,
-      enum: ["USD", "AED"],
+      enum: BOOKING_CURRENCY_ENUM,
       default: "USD",
     },
     billingParty: {
