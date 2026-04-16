@@ -89,12 +89,12 @@ function createCounterFieldHelpers({
 
   async function createWithAutoValue(data, maxRetries = 3) {
     const doc = new model(data);
-    await doc.validate(); // Ensure it passes schema validation before consuming sequence
 
     let attempt = 0;
     while (attempt < maxRetries) {
       try {
         doc[fieldName] = await getNextValue();
+        await doc.validate();
         return await doc.save();
       } catch (error) {
         // 11000 is MongoDB's Duplicate Key Error code.

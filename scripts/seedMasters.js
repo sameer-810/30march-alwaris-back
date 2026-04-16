@@ -57,7 +57,7 @@ async function createMany(label, count, createFn) {
 }
 
 async function run() {
-  const count = 30;
+  const count = 60;
   const tag = String(Date.now()).slice(-8);
 
   if (!Number.isFinite(count) || count <= 0) {
@@ -258,16 +258,16 @@ async function run() {
       shipper: `Shipper ${tag}-${pad(i)}`,
       consignee: `Consignee ${tag}-${pad(i)}`,
       modeOfTransport: "Sea",
-      exportImport: i % 2 === 0 ? "Export" : "Import",
+      exportImport: ["Export", "Import", "Cross Trade"][(i - 1) % 3],
       portOfLoading: String(portLoad._id || portLoad.id),
       portOfDestination: String(portDest._id || portDest.id),
       line: ["ACL", "AGL", "ASR"][(i - 1) % 3],
-      status: "Pending",
+      status: ["Pending", "Done", "Cancel"][(i - 1) % 3],
       terms: String(term._id || term.id),
       lineOfBix: String(lineOfBix._id || lineOfBix.id),
       mbl: `MBL-${tag}-${pad(i)}`,
       orderReference: `OR-${tag}-${pad(i)}`,
-      defaultCurrency: i % 2 === 0 ? "USD" : "AED",
+      defaultCurrency: "AED",
       billingParty: String(billingCustomer._id || billingCustomer.id),
       shipmentDetails: [
         {
@@ -297,7 +297,7 @@ async function run() {
           chargedPer: "DOCS",
           qty: 1,
           rate: 500,
-          currency: "USD",
+          currency: "AED",
           size: "20",
           type: "GP",
           amount: 500,
@@ -307,14 +307,14 @@ async function run() {
       ],
       expenseDetails: [
         {
-          vendorName: String(vendorAgent._id || vendorAgent.id),
+          vendor: String(vendorAgent._id || vendorAgent.id),
           chargeDescription: String(
             tariffDescription._id || tariffDescription.id,
           ),
           chargedPer: "DOCS",
           qty: 1,
           rate: 300,
-          currency: "USD",
+          currency: "AED",
           size: "20",
           type: "GP",
           amount: 300,

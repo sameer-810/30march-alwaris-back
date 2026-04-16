@@ -79,7 +79,7 @@ const BookingIncomeDetailSchema = new mongoose.Schema(
       type: String,
       enum: BOOKING_CURRENCY_ENUM,
       required: true,
-      default: "USD",
+      default: "AED",
     },
     size: {
       type: String,
@@ -126,7 +126,7 @@ const BookingExpenseDetailSchema = new mongoose.Schema(
       type: String,
       enum: BOOKING_CURRENCY_ENUM,
       required: true,
-      default: "USD",
+      default: "AED",
     },
     size: {
       type: String,
@@ -225,7 +225,7 @@ const BookingSchema = new mongoose.Schema(
     defaultCurrency: {
       type: String,
       enum: BOOKING_CURRENCY_ENUM,
-      default: "USD",
+      default: "AED",
     },
     billingParty: {
       type: mongoose.Schema.Types.ObjectId,
