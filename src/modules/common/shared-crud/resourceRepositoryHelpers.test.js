@@ -27,17 +27,13 @@ describe("resourceRepositoryHelpers", () => {
 
   describe("createCounterFieldHelpers", () => {
     let mockDocSave;
-    let mockDocValidate;
     let mockModel;
     let mockCounterModel;
     let helpers;
 
     beforeEach(() => {
       mockDocSave = jest.fn();
-      mockDocValidate = jest.fn().mockResolvedValue();
-
       mockModel = jest.fn().mockImplementation(() => ({
-        validate: mockDocValidate,
         save: mockDocSave,
       }));
       mockModel.find = jest.fn();
@@ -76,7 +72,6 @@ describe("resourceRepositoryHelpers", () => {
 
       const result = await helpers.createWithAutoValue({ name: "Bob" });
 
-      expect(mockDocValidate).toHaveBeenCalledTimes(1);
       expect(mockCounterModel.findByIdAndUpdate).toHaveBeenCalledTimes(2);
       expect(mockDocSave).toHaveBeenCalledTimes(2);
 

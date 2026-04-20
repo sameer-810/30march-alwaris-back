@@ -94,7 +94,6 @@ function createCounterFieldHelpers({
     while (attempt < maxRetries) {
       try {
         doc[fieldName] = await getNextValue();
-        await doc.validate();
         return await doc.save();
       } catch (error) {
         // 11000 is MongoDB's Duplicate Key Error code.

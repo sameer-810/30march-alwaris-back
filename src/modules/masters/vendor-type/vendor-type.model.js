@@ -8,7 +8,6 @@ const VendorTypeSchema = new mongoose.Schema(
       required: true,
       trim: true,
       unique: true,
-      index: true,
     },
     isDeleted: { type: Boolean, default: false, index: true },
     deletedAt: { type: Date, default: null },

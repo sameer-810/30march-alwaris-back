@@ -4,7 +4,7 @@ import { bookingRepository } from "./booking.repository.js";
 function normalizeAmountRow(row = {}) {
   const qty = Number(row.qty || 0);
   const rate = Number(row.rate || 0);
-  const exRate = Number(row.exRate || 1);
+  const exRate = Number(row.exRate || 0);
   const amount = Number((qty * rate * exRate).toFixed(2));
 
   const normalizedRow = { ...row };
@@ -65,8 +65,9 @@ const bookingCrudService = createResourceService({
       ),
     };
   },
-  mapUpdatePatch: (patch) => {
+  mapUpdatePatch: async (patch, id) => {
     const nextPatch = { ...patch };
+    let existingBooking;
 
     if (Array.isArray(nextPatch.incomeDetails)) {
       nextPatch.incomeDetails = normalizeAmountRows(nextPatch.incomeDetails);
@@ -84,14 +85,21 @@ const bookingCrudService = createResourceService({
       typeof nextPatch.incomeTotalInAed === "number" ||
       typeof nextPatch.expenseTotalInAed === "number"
     ) {
+      if (
+        typeof nextPatch.incomeTotalInAed !== "number" ||
+        typeof nextPatch.expenseTotalInAed !== "number"
+      ) {
+        existingBooking = await bookingRepository.findById(id);
+      }
+
       const incomeTotal =
         typeof nextPatch.incomeTotalInAed === "number"
           ? nextPatch.incomeTotalInAed
-          : 0;
+          : (existingBooking?.incomeTotalInAed ?? 0);
       const expenseTotal =
         typeof nextPatch.expenseTotalInAed === "number"
           ? nextPatch.expenseTotalInAed
-          : 0;
+          : (existingBooking?.expenseTotalInAed ?? 0);
       nextPatch.netAmountInAed = Number(
         (incomeTotal - expenseTotal).toFixed(2),
       );

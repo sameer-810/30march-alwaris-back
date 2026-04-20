@@ -27,10 +27,6 @@ const employeeRepository = {
     return findActiveById(EmployeeModel, id);
   },
 
-  findByEmployeeId(employeeId) {
-    return EmployeeModel.findOne({ employeeId, isDeleted: false }).lean();
-  },
-
   async createWithAutoId(data) {
     const employeeId = await getNextEmployeeId();
     return EmployeeModel.create({ ...data, employeeId });

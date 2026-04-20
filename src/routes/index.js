@@ -19,6 +19,7 @@ import bookingRoutes from "../modules/booking/booking.routes.js";
 import billOfLadingRoutes from "../modules/bill-of-lading/bill-of-lading.routes.js";
 import vendorDocumentsRoutes from "../modules/vendor-documents/vendor-documents.routes.js";
 import costSheetRoutes from "../modules/cost-sheet/cost-sheet.routes.js";
+import invoiceRoutes from "../modules/invoice/invoice.routes.js";
 
 const routes = Router();
 
@@ -41,5 +42,6 @@ routes.use("/bookings", bookingRoutes);
 routes.use("/bill-of-lading", billOfLadingRoutes);
 routes.use("/vendor-documents", vendorDocumentsRoutes);
 routes.use("/cost-sheets", costSheetRoutes);
+routes.use("/invoices", invoiceRoutes);
 
 export default routes;

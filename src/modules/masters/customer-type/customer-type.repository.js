@@ -25,10 +25,6 @@ const customerTypeRepository = {
     return findActiveById(CustomerTypeModel, id);
   },
 
-  findByName(customerType) {
-    return CustomerTypeModel.findOne({ customerType, isDeleted: false }).lean();
-  },
-
   async findMany({ search, page, limit, sortBy, sortDir }) {
     const q = { isDeleted: false };
 

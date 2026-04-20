@@ -71,32 +71,79 @@ describe("booking.service", () => {
   });
 
   describe("Financial Calculations on Update", () => {
-    it("should accurately recalculate amounts and totals when patch contains rows", async () => {
-      mockRepository.updateById.mockResolvedValue({ id: 1 });
+    it("should use stored incomeTotalInAed when only expenseDetails are patched", async () => {
+      // Existing doc has income = 5000, expense = 2000, net = 3000
+      mockRepository.findById.mockResolvedValue({
+        incomeTotalInAed: 5000,
+        expenseTotalInAed: 2000,
+      });
+      mockRepository.updateById.mockResolvedValue({ id: "1" });
 
       const patch = {
         expenseDetails: [
           { qty: 1, rate: 100, exRate: 1 }, // Amount = 100
           { qty: 1, rate: 300, exRate: 3.67 }, // Amount = 1101
         ],
-        incomeTotalInAed: 5000,
-        // If income is not patched, the backend's logic explicitly looks at the
-        // incomeTotalInAed fed into it? Wait, yes, the update calculates net based on what is in the patch!
       };
 
       await bookingService.update("1", patch);
 
       const modifiedPatch = mockRepository.updateById.mock.calls[0][1];
 
-      // Row recalculation
+      // Row-level recalculation
       expect(modifiedPatch.expenseDetails[0].amount).toBe(100);
       expect(modifiedPatch.expenseDetails[1].amount).toBe(1101);
 
-      // Total expense recalculation
+      // Expense total updated from the patch
       expect(modifiedPatch.expenseTotalInAed).toBe(1201);
 
-      // Net Amount (Income provided in patch 5000 - Expense updated to 1201)
+      // Net = stored income (5000) - new expense (1201), NOT 0 - 1201
       expect(modifiedPatch.netAmountInAed).toBe(3799);
+    });
+
+    it("should use stored expenseTotalInAed when only incomeDetails are patched", async () => {
+      // Existing doc has income = 1000, expense = 800, net = 200
+      mockRepository.findById.mockResolvedValue({
+        incomeTotalInAed: 1000,
+        expenseTotalInAed: 800,
+      });
+      mockRepository.updateById.mockResolvedValue({ id: "1" });
+
+      const patch = {
+        incomeDetails: [
+          { qty: 2, rate: 500, exRate: 1 }, // Amount = 2 * 500 * 1 = 1000
+        ],
+      };
+
+      await bookingService.update("1", patch);
+
+      const modifiedPatch = mockRepository.updateById.mock.calls[0][1];
+
+      // Income total updated from the patch
+      expect(modifiedPatch.incomeTotalInAed).toBe(1000);
+
+      // Net = new income (1000) - stored expense (800), NOT 1000 - 0
+      expect(modifiedPatch.netAmountInAed).toBe(200);
+    });
+
+    it("should recalculate net correctly when both sides are patched", async () => {
+      mockRepository.updateById.mockResolvedValue({ id: "1" });
+
+      const patch = {
+        incomeDetails: [{ qty: 1, rate: 300, exRate: 1 }], // 300
+        expenseDetails: [{ qty: 1, rate: 100, exRate: 1 }], // 100
+      };
+
+      await bookingService.update("1", patch);
+
+      const modifiedPatch = mockRepository.updateById.mock.calls[0][1];
+
+      expect(modifiedPatch.incomeTotalInAed).toBe(300);
+      expect(modifiedPatch.expenseTotalInAed).toBe(100);
+      expect(modifiedPatch.netAmountInAed).toBe(200);
+
+      // findById should NOT be called when both totals are present in the patch
+      expect(mockRepository.findById).not.toHaveBeenCalled();
     });
   });
 });

@@ -8,22 +8,11 @@ const bookingPopulate = [
 
 const vendorDocumentsRepository = {
   async getJobOptions() {
-    const rows = await BookingModel.find({ isDeleted: false })
-      .select("jobNo")
-      .sort({ jobNo: -1 })
-      .lean();
-
-    const seen = new Set();
-    const options = [];
-
-    for (const row of rows) {
-      const jobNo = Number(row.jobNo);
-      if (!Number.isFinite(jobNo) || seen.has(jobNo)) continue;
-      seen.add(jobNo);
-      options.push({ jobNo });
-    }
-
-    return options;
+    const jobNos = await BookingModel.distinct("jobNo", { isDeleted: false });
+    return jobNos
+      .map((jobNo) => ({ jobNo: Number(jobNo) }))
+      .filter((j) => Number.isFinite(j.jobNo))
+      .sort((a, b) => b.jobNo - a.jobNo);
   },
 
   getBookingByJobNo(jobNo) {
@@ -75,33 +64,25 @@ const vendorDocumentsRepository = {
       file,
     };
 
-    const existing = await VendorDocumentsModel.findOne({
-      jobNo,
-      isDeleted: false,
-    }).lean();
-
-    const nextRows = Array.isArray(existing?.vendorRowFiles)
-      ? [...existing.vendorRowFiles]
-      : [];
-
-    const idx = nextRows.findIndex((item) => item.rowKey === rowKey);
-    if (idx >= 0) {
-      nextRows[idx] = rowPayload;
-    } else {
-      nextRows.push(rowPayload);
-    }
-
-    return VendorDocumentsModel.findOneAndUpdate(
-      { jobNo, isDeleted: false },
+    const result = await VendorDocumentsModel.findOneAndUpdate(
+      { jobNo, isDeleted: false, "vendorRowFiles.rowKey": rowKey },
       {
         $set: {
           bookingId,
-          vendorRowFiles: nextRows,
+          "vendorRowFiles.$": rowPayload,
         },
-        $setOnInsert: {
-          jobNo,
-          isDeleted: false,
-        },
+      },
+      { new: true },
+    ).lean();
+
+    if (result) return result;
+
+    return VendorDocumentsModel.findOneAndUpdate(
+      { jobNo, isDeleted: false, "vendorRowFiles.rowKey": { $ne: rowKey } },
+      {
+        $set: { bookingId },
+        $push: { vendorRowFiles: rowPayload },
+        $setOnInsert: { jobNo, isDeleted: false },
       },
       {
         new: true,

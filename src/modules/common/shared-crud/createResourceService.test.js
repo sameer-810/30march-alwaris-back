@@ -131,7 +131,7 @@ describe("createResourceService", () => {
       await service.update("1", { name: "New" });
 
       expect(beforeUpdateMock).toHaveBeenCalledWith({ name: "New" });
-      expect(mapUpdatePatchMock).toHaveBeenCalledWith({ name: "New" });
+      expect(mapUpdatePatchMock).toHaveBeenCalledWith({ name: "New" }, "1");
       expect(mockRepository.updateById).toHaveBeenCalledWith("1", {
         name: "New",
         hydrated: true,

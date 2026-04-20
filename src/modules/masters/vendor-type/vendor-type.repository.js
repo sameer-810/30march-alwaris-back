@@ -25,10 +25,6 @@ const vendorTypeRepository = {
     return findActiveById(VendorTypeModel, id);
   },
 
-  findByName(vendorType) {
-    return VendorTypeModel.findOne({ vendorType, isDeleted: false }).lean();
-  },
-
   async findMany({ search, page, limit, sortBy, sortDir }) {
     const q = { isDeleted: false };
 

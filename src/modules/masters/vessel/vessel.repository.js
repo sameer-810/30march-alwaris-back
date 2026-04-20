@@ -25,10 +25,6 @@ const vesselRepository = {
     return findActiveById(VesselModel, id);
   },
 
-  findByName(vesselName) {
-    return VesselModel.findOne({ vesselName, isDeleted: false }).lean();
-  },
-
   async findMany({ search, page, limit, sortBy, sortDir }) {
     const q = { isDeleted: false };
 

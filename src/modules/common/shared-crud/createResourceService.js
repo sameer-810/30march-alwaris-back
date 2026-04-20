@@ -36,7 +36,9 @@ function createResourceService({
         await beforeUpdate(patch);
       }
 
-      const nextPatch = mapUpdatePatch ? mapUpdatePatch(patch) : patch;
+      const nextPatch = mapUpdatePatch
+        ? await mapUpdatePatch(patch, id)
+        : patch;
       const updated = await repository.updateById(id, nextPatch);
       if (!updated) throw new AppError(notFoundMessage, 404);
       return updated;
