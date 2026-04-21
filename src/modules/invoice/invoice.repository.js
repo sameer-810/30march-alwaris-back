@@ -146,7 +146,7 @@ function toTableRow(invoice) {
   return {
     id: String(invoice._id || invoice.id || ""),
     jobNo: toNumber(invoice.jobNo, 0),
-    code: "",
+    code: String(invoice?.code ?? "").trim(),
     customerName: String(invoice.customerName || ""),
     jobDate: invoice.jobDate || "",
     invoiceNo: String(invoice.invoiceNo || ""),
@@ -247,13 +247,13 @@ const invoiceRepository = {
       status: "Done",
       jobNo,
     })
-      .populate({ path: "bookingParty", select: "customerName" })
+      .populate({ path: "bookingParty", select: "customerName code" })
       .populate({ path: "portOfLoading", select: "portName" })
       .populate({ path: "portOfDestination", select: "portName" })
       .populate({ path: "shipmentDetails.vessel", select: "vesselName" })
       .populate({
         path: "incomeDetails.incomeBillingParty",
-        select: "customerName",
+        select: "customerName code",
       })
       .populate({
         path: "incomeDetails.chargeDescription",
@@ -282,6 +282,9 @@ const invoiceRepository = {
     const shipment = Array.isArray(booking.shipmentDetails)
       ? booking.shipmentDetails[0]
       : null;
+    const customerCode =
+      String(booking.bookingParty?.code ?? "").trim() ||
+      String(booking.incomeDetails?.[0]?.incomeBillingParty?.code ?? "").trim();
 
     const header = {
       jobNo,
@@ -314,6 +317,7 @@ const invoiceRepository = {
       costSheetId: approvedCostSheet?._id ? String(approvedCostSheet._id) : "",
       invoiceNo: "",
       invoiceDate: "",
+      code: customerCode,
       customerName:
         normalizeName(booking.bookingParty, "customerName") ||
         normalizeName(
