@@ -24,6 +24,8 @@ const corsOrigin = env.CORS_ORIGIN
     : true;
 
 app.disable("x-powered-by");
+// Render terminates TLS at one proxy hop; without this every user shares the proxy IP for rate limiting.
+app.set("trust proxy", 1);
 app.use(helmet());
 app.use(
   cors({
